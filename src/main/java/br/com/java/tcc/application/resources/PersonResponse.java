@@ -2,7 +2,6 @@ package br.com.java.tcc.application.resources;
 
 
 import br.com.java.tcc.application.persistence.PersonEntity;
-import com.almada.people.entity.Person;
 import lombok.Getter;
 
 @Getter

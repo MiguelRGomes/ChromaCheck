@@ -2,15 +2,15 @@ version: '3'
 
 services:
   local-postgres-compose:
-    container_name: tcc
+    container_name: bancotcc
     image: postgres
     environment:
-      POSTGRES_PASSWORD: "1234"
+      POSTGRES_PASSWORD: "12345678"
     ports:
       - "5432:5432"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./postgres-data:/var/lib/postgresql/data
+      - ./database-docker/postgres-data:/var/lib/postgresql/data
     networks:
       - postgres-compose-network
 

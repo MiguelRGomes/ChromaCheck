@@ -3,8 +3,6 @@ package br.com.java.tcc.application;
 
 import br.com.java.tcc.application.resources.PersonRequest;
 import br.com.java.tcc.application.resources.PersonResponse;
-import com.almada.people.dto.request.PersonRequestDTO;
-import com.almada.people.dto.response.PersonResponseDTO;
 
 import java.util.List;
 
