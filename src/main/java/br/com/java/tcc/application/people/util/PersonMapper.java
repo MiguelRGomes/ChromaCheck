@@ -1,8 +1,8 @@
-package br.com.java.tcc.application.util;
+package br.com.java.tcc.application.people.util;
 
-import br.com.java.tcc.application.persistence.PersonEntity;
-import br.com.java.tcc.application.resources.PersonRequest;
-import br.com.java.tcc.application.resources.PersonResponse;
+import br.com.java.tcc.application.people.persistence.PersonEntity;
+import br.com.java.tcc.application.people.resources.PersonRequest;
+import br.com.java.tcc.application.people.resources.PersonResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class PersonMapper {
     }
 
     public PersonResponse toPersonDTO(PersonEntity personEntity){
+
         return new PersonResponse(personEntity);
     }
 
@@ -30,7 +31,7 @@ public class PersonMapper {
 
     public void updatePersonData(PersonEntity personEntity, PersonRequest personDTO){
         personEntity.setName(personDTO.getName());
-        personEntity.setCpf(personEntity.getCpf());
-        personEntity.setAge(personEntity.getAge());
+        personEntity.setCpf(personDTO.getCpf());
+        personEntity.setAge(personDTO.getAge());
     }
 }

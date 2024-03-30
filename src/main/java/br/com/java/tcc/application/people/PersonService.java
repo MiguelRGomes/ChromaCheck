@@ -1,8 +1,8 @@
-package br.com.java.tcc.application;
+package br.com.java.tcc.application.people;
 
 
-import br.com.java.tcc.application.resources.PersonRequest;
-import br.com.java.tcc.application.resources.PersonResponse;
+import br.com.java.tcc.application.people.resources.PersonRequest;
+import br.com.java.tcc.application.people.resources.PersonResponse;
 
 import java.util.List;
 

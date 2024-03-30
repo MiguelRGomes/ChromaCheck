@@ -1,4 +1,4 @@
-package br.com.java.tcc.application.persistence;
+package br.com.java.tcc.application.people.persistence;
 
 import jakarta.persistence.*;
 import lombok.*;

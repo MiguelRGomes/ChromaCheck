@@ -1,8 +1,6 @@
-package br.com.java.tcc.application.resources;
+package br.com.java.tcc.application.people.resources;
 
-import br.com.java.tcc.application.PersonService;
-import br.com.java.tcc.application.resources.PersonRequest;
-import br.com.java.tcc.application.resources.PersonResponse;
+import br.com.java.tcc.application.people.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

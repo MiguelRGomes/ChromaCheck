@@ -1,10 +1,11 @@
-package br.com.java.tcc.application;
+package br.com.java.tcc.application.people;
 
-import br.com.java.tcc.application.persistence.PersonEntity;
-import br.com.java.tcc.application.persistence.PersonRepository;
-import br.com.java.tcc.application.resources.PersonRequest;
-import br.com.java.tcc.application.resources.PersonResponse;
-import br.com.java.tcc.application.util.PersonMapper;
+import br.com.java.tcc.application.people.PersonService;
+import br.com.java.tcc.application.people.persistence.PersonEntity;
+import br.com.java.tcc.application.people.persistence.PersonRepository;
+import br.com.java.tcc.application.people.resources.PersonRequest;
+import br.com.java.tcc.application.people.resources.PersonResponse;
+import br.com.java.tcc.application.people.util.PersonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonResponse> findAll() {
+
         return personMapper.toPeopleDTO(personRepository.findAll());
     }
 
