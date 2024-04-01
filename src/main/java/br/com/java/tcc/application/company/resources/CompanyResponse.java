@@ -26,7 +26,7 @@ public class CompanyResponse {
     private String email;
 
     public CompanyResponse(CompanyEntity companyEntity){
-        this.id = companyEntity.getId();
+        this.id =   companyEntity.getId();
         this.cnpj = companyEntity.getCnpj();
         this.name = companyEntity.getName();
         this.address = companyEntity.getAddress();

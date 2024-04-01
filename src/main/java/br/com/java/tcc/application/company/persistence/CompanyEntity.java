@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-//@IdClass(CompanyId.class)
 public class CompanyEntity {
 
     @Id
@@ -17,12 +16,8 @@ public class CompanyEntity {
     @Setter(AccessLevel.NONE)
     private Long Id;
 
-    @Id
     @Column(name = "cnpj", nullable = false, unique = true)
     private String cnpj;
-
-    @EmbeddedId
-    private CompanyId companyId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -49,8 +44,8 @@ public class CompanyEntity {
     private String email;
 
     @Builder
-    public CompanyEntity(CompanyId companyId, String name, String address, Integer number, String district, String cep, String city, String fone, String email) {
-        this.companyId = companyId;
+    public CompanyEntity(String cnpj, String name, String address, Integer number, String district, String cep, String city, String fone, String email) {
+        this.cnpj = cnpj;
         this.name = name;
         this.address = address;
         this.number = number;

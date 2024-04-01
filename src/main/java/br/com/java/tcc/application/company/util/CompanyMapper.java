@@ -1,7 +1,6 @@
 package br.com.java.tcc.application.company.util;
 
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
-import br.com.java.tcc.application.company.persistence.CompanyId;
 import br.com.java.tcc.application.company.resources.CompanyRequest;
 import br.com.java.tcc.application.company.resources.CompanyResponse;
 import org.springframework.stereotype.Component;
@@ -13,11 +12,9 @@ import java.util.stream.Collectors;
 public class CompanyMapper {
 
     public CompanyEntity toCompany(CompanyRequest companyDTO){
-        CompanyId companyId = new CompanyId();
-        companyId.setCnpj(companyDTO.getCnpj());
 
         return CompanyEntity.builder()
-                .companyId(companyId)
+                .cnpj(companyDTO.getCnpj())
                 .name(companyDTO.getName())
                 .address(companyDTO.getAddress())
                 .number(companyDTO.getNumber())

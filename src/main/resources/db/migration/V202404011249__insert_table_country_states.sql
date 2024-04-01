@@ -1,0 +1,28 @@
+
+INSERT INTO public.country_states (state, state_code) VALUES('Acre', 'AC');
+INSERT INTO public.country_states (state, state_code) VALUES('Alagoas', 'AL');
+INSERT INTO public.country_states (state, state_code) VALUES('Amapá', 'AP');
+INSERT INTO public.country_states (state, state_code) VALUES('Amazonas', 'AM');
+INSERT INTO public.country_states (state, state_code) VALUES('Bahia', 'BA');
+INSERT INTO public.country_states (state, state_code) VALUES('Ceará', 'CE');
+INSERT INTO public.country_states (state, state_code) VALUES('Distrito Federal', 'DF');
+INSERT INTO public.country_states (state, state_code) VALUES('Espírito Santo', 'ES');
+INSERT INTO public.country_states (state, state_code) VALUES('Goiás', 'GO');
+INSERT INTO public.country_states (state, state_code) VALUES('Maranhão', 'MA');
+INSERT INTO public.country_states (state, state_code) VALUES('Mato Grosso', 'MT');
+INSERT INTO public.country_states (state, state_code) VALUES('Mato Grosso do Sul', 'MS');
+INSERT INTO public.country_states (state, state_code) VALUES('Minas Gerais', 'MG');
+INSERT INTO public.country_states (state, state_code) VALUES('Pará', 'PA');
+INSERT INTO public.country_states (state, state_code) VALUES('Paraíba', 'PB');
+INSERT INTO public.country_states (state, state_code) VALUES('Paraná', 'PR');
+INSERT INTO public.country_states (state, state_code) VALUES('Pernambuco', 'PE');
+INSERT INTO public.country_states (state, state_code) VALUES('Piauí', 'PI');
+INSERT INTO public.country_states (state, state_code) VALUES('Rio de Janeiro', 'RJ');
+INSERT INTO public.country_states (state, state_code) VALUES('Rio Grande do Norte', 'RN');
+INSERT INTO public.country_states (state, state_code) VALUES('Rio Grande do Sul', 'RS');
+INSERT INTO public.country_states (state, state_code) VALUES('Rondônia', 'RO');
+INSERT INTO public.country_states (state, state_code) VALUES('Roraima', 'RR');
+INSERT INTO public.country_states (state, state_code) VALUES('Santa Catarina', 'SC');
+INSERT INTO public.country_states (state, state_code) VALUES('São Paulo', 'SP');
+INSERT INTO public.country_states (state, state_code) VALUES('Sergipe', 'SE');
+INSERT INTO public.country_states (state, state_code) VALUES('Tocantins', 'TO');

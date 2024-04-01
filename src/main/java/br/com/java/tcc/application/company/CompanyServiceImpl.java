@@ -5,7 +5,6 @@ import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.company.resources.CompanyRequest;
 import br.com.java.tcc.application.company.resources.CompanyResponse;
 import br.com.java.tcc.application.company.util.CompanyMapper;
-import br.com.java.tcc.application.people.util.PersonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -52,8 +51,8 @@ public class CompanyServiceImpl implements CompanyService{
         companyRepository.deleteById(id);
         return "Company id: " + id + " deleted";
     }
-     private CompanyEntity returnCompany(Long id) {
+    private CompanyEntity returnCompany(Long id) {
         return companyRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Company wasn't found on database"));
-     }
+    }
 }
