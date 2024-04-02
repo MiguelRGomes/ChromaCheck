@@ -1,7 +1,6 @@
 package br.com.java.tcc.application.company.resources;
 
 import br.com.java.tcc.application.company.CompanyService;
-import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

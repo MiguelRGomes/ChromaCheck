@@ -21,6 +21,7 @@ public class CompanyMapper {
                 .district(companyDTO.getDistrict())
                 .cep(companyDTO.getCep())
                 .city(companyDTO.getCity())
+                .uf(companyDTO.getUf())
                 .fone(companyDTO.getFone())
                 .email(companyDTO.getEmail())
                 .build();
@@ -43,6 +44,7 @@ public class CompanyMapper {
         companyEntity.setDistrict(companyDTO.getDistrict());
         companyEntity.setCep(companyDTO.getCep());
         companyEntity.setCity(companyDTO.getCity());
+        companyEntity.setUf(companyDTO.getUf());
         companyEntity.setFone(companyDTO.getFone());
         companyEntity.setEmail(companyDTO.getEmail());
     }

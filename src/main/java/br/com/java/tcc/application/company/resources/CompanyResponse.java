@@ -21,12 +21,14 @@ public class CompanyResponse {
 
     private String city;
 
+    private String uf;
+
     private String fone;
 
     private String email;
 
     public CompanyResponse(CompanyEntity companyEntity){
-        this.id =   companyEntity.getId();
+        this.id = companyEntity.getId();
         this.cnpj = companyEntity.getCnpj();
         this.name = companyEntity.getName();
         this.address = companyEntity.getAddress();
@@ -34,6 +36,7 @@ public class CompanyResponse {
         this.district = companyEntity.getDistrict();
         this.cep = companyEntity.getCep();
         this.city = companyEntity.getCity();
+        this.uf = companyEntity.getUf();
         this.fone = companyEntity.getFone();
         this.email = companyEntity.getEmail();
     }

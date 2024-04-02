@@ -22,11 +22,13 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public CompanyResponse findById(Long id) {
+
         return companyMapper.toCompanyDTO(returnCompany(id));
     }
 
     @Override
     public List<CompanyResponse> findAll() {
+
         return companyMapper.toCompanyDTO(companyRepository.findAll());
     }
 

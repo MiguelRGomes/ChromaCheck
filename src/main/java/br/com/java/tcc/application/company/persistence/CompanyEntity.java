@@ -37,6 +37,9 @@ public class CompanyEntity {
     @Column(name = "city", nullable = false)
     private String city;
 
+    @Column(name = "uf", nullable = false)
+    private String uf;
+
     @Column(name = "fone", nullable = false)
     private String fone;
 
@@ -44,7 +47,7 @@ public class CompanyEntity {
     private String email;
 
     @Builder
-    public CompanyEntity(String cnpj, String name, String address, Integer number, String district, String cep, String city, String fone, String email) {
+    public CompanyEntity(String cnpj, String name, String address, Integer number, String district, String cep, String city, String uf, String fone, String email) {
         this.cnpj = cnpj;
         this.name = name;
         this.address = address;
@@ -52,6 +55,7 @@ public class CompanyEntity {
         this.district = district;
         this.cep = cep;
         this.city = city;
+        this.uf = uf;
         this.fone = fone;
         this.email = email;
     }

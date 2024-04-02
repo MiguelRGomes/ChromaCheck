@@ -18,6 +18,8 @@ public class CompanyRequest {
 
     private String city;
 
+    private String uf;
+
     private String fone;
 
     private String email;
