@@ -5,12 +5,14 @@ import lombok.Getter;
 @Getter
 public class PersonRequest {
 
-    private String name;
+    private String type;
 
+    private String name;
 
     private String cpf;
 
+    private String fone;
 
-    private Integer age;
+    private String email;
 
 }

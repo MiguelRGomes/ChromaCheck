@@ -14,9 +14,11 @@ public class PersonMapper {
     public PersonEntity toPerson(PersonRequest personDTO){
 
         return PersonEntity.builder()
+                .type(personDTO.getType())
                 .name(personDTO.getName())
                 .cpf(personDTO.getCpf())
-                .age(personDTO.getAge())
+                .fone(personDTO.getFone())
+                .email(personDTO.getEmail())
                 .build();
     }
 
@@ -30,8 +32,10 @@ public class PersonMapper {
     }
 
     public void updatePersonData(PersonEntity personEntity, PersonRequest personDTO){
+        personEntity.setType(personDTO.getType());
         personEntity.setName(personDTO.getName());
         personEntity.setCpf(personDTO.getCpf());
-        personEntity.setAge(personDTO.getAge());
+        personEntity.setFone(personDTO.getFone());
+        personEntity.setEmail(personDTO.getEmail());
     }
 }

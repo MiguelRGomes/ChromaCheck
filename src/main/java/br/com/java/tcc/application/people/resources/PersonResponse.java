@@ -9,19 +9,24 @@ public class PersonResponse {
 
     private Long id;
 
+    private String type;
+
     private String name;
 
 
     private String cpf;
 
+    private String fone;
 
-    private Integer age;
+    private String email;
 
     public PersonResponse(PersonEntity personEntity) {
         this.id = personEntity.getId();
+        this.type = personEntity.getType();
         this.name = personEntity.getName();
         this.cpf = personEntity.getCpf();
-        this.age = personEntity.getAge();
+        this.fone = personEntity.getFone();
+        this.email = personEntity.getEmail();
     }
 
 
