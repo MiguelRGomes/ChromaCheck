@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.adresses.persistence;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,6 +20,10 @@ public class AdressEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private PersonEntity personEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private CompanyEntity companyEntity;
 
     @Column(name = "adress", nullable = false)
     private String adress;
