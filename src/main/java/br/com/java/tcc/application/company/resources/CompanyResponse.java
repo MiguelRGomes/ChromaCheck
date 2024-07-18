@@ -40,4 +40,8 @@ public class CompanyResponse {
         this.fone = companyEntity.getFone();
         this.email = companyEntity.getEmail();
     }
+
+    public static CompanyResponse from(CompanyEntity companyEntity) {
+        return new CompanyResponse(companyEntity);
+    }
 }

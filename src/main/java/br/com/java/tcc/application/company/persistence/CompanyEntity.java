@@ -59,4 +59,8 @@ public class CompanyEntity {
         this.fone = fone;
         this.email = email;
     }
+
+    public void setId(Long id){
+        this.Id = id;
+    }
 }

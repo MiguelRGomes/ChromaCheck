@@ -1,16 +1,20 @@
 package br.com.java.tcc.application.people;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
+import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.people.PersonService;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.people.persistence.PersonRepository;
 import br.com.java.tcc.application.people.resources.PersonRequest;
 import br.com.java.tcc.application.people.resources.PersonResponse;
 import br.com.java.tcc.application.people.util.PersonMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Primary
@@ -21,6 +25,7 @@ public class PersonServiceImpl implements PersonService {
 
     private final PersonMapper personMapper;
 
+    private final CompanyRepository companyRepository;
 
     @Override
     public PersonResponse findById(Long id) {
@@ -34,11 +39,20 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public PersonResponse register(PersonRequest personDTO) {
 
         PersonEntity personEntity = personMapper.toPerson(personDTO);
 
-        return personMapper.toPersonDTO(personRepository.save(personEntity));
+        Optional<CompanyEntity> optional =  companyRepository.findById(personDTO.getCompanyEntity().getId());
+        if (optional.isPresent()){
+            CompanyEntity companyEntity = optional.get();
+            personEntity.setCompanyEntity(companyEntity);
+            return personMapper.toPersonDTO(personRepository.save(personEntity));
+        }
+        else {
+            throw new RuntimeException("Company with id " + personDTO.getCompanyEntity().getId() + " not found");
+        }
     }
 
     @Override

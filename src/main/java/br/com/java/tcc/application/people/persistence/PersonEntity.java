@@ -18,7 +18,7 @@ public class PersonEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity companyEntity;
 
     @Column(name = "type", nullable = false)
@@ -27,8 +27,8 @@ public class PersonEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "cpf", nullable = false, unique = true)
-    private String cpf;
+    @Column(name = "cpf_cnpj", nullable = false, unique = true)
+    private String cpf_cnpj;
 
     @Column(name = "fone", nullable = false)
     private String fone;
@@ -37,12 +37,16 @@ public class PersonEntity {
     private String email;
 
     @Builder
-    public PersonEntity(String type, String name, String cpf, String fone, String email) {
+    public PersonEntity(CompanyEntity companyEntity, String type, String name, String cpf_cnpj, String fone, String email) {
+        this.companyEntity = companyEntity;
         this.type = type;
         this.name = name;
-        this.cpf = cpf;
+        this.cpf_cnpj = cpf_cnpj;
         this.fone = fone;
         this.email = email;
     }
 
+    public void setId(Long id){
+        this.id = id;
+    }
 }

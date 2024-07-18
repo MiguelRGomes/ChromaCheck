@@ -3,6 +3,7 @@ package br.com.java.tcc.application.adresses.util;
 import br.com.java.tcc.application.adresses.persistence.AdressEntity;
 import br.com.java.tcc.application.adresses.resources.AdressRequest;
 import br.com.java.tcc.application.adresses.resources.AdressResponse;
+import br.com.java.tcc.application.people.persistence.PersonEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,7 +13,11 @@ import java.util.stream.Collectors;
 public class AdressMapper {
 
     public AdressEntity toAdress(AdressRequest adressDTO){
+        PersonEntity personEntity = new PersonEntity();
+        personEntity.setId(adressDTO.getPersonEntity().getId());
+
         return AdressEntity.builder()
+                .personEntity(personEntity)
                 .adress(adressDTO.getAdress())
                 .number(adressDTO.getNumber())
                 .district(adressDTO.getDistrict())

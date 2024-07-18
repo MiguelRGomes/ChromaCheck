@@ -1,15 +1,17 @@
 package br.com.java.tcc.application.people.resources;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import lombok.Getter;
 
 @Getter
 public class PersonRequest {
+    private CompanyEntity companyEntity;
 
     private String type;
 
     private String name;
 
-    private String cpf;
+    private String cpf_cnpj;
 
     private String fone;
 
