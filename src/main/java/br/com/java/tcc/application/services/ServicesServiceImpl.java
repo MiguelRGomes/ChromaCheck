@@ -1,5 +1,7 @@
 package br.com.java.tcc.application.services;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
+import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.services.persistence.ServicesEntity;
 import br.com.java.tcc.application.services.persistence.ServicesRepository;
 import br.com.java.tcc.application.services.resources.ServicesRequest;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Primary
@@ -19,6 +22,8 @@ public class ServicesServiceImpl implements ServicesService {
     private final ServicesRepository servicesRepository;
 
     private final ServicesMapper servicesMapper;
+
+    private final CompanyRepository companyRepository;
 
     @Override
     public ServicesResponse findById(Long id) {
@@ -37,7 +42,15 @@ public class ServicesServiceImpl implements ServicesService {
 
         ServicesEntity servicesEntity = servicesMapper.toServices(servicesDTO);
 
-        return servicesMapper.toServicesDTO(servicesRepository.save(servicesEntity));
+        Optional<CompanyEntity> optional =  companyRepository.findById(servicesDTO.getCompanyEntity().getId());
+        if (optional.isPresent()){
+            CompanyEntity companyEntity = optional.get();
+            servicesEntity.setCompanyEntity(companyEntity);
+            return servicesMapper.toServicesDTO(servicesRepository.save(servicesEntity));
+        }
+        else {
+            throw new RuntimeException("Company with id " + servicesDTO.getCompanyEntity().getId() + " not found");
+        }
     }
 
     @Override

@@ -26,8 +26,12 @@ public class ServicesEntity {
     private String name;
 
     @Builder
-    public ServicesEntity(String name){
-
+    public ServicesEntity(CompanyEntity companyEntity, String name){
+        this.companyEntity = companyEntity;
         this.name = name;
+    }
+
+    public void setId(Long id){
+        this.Id = id;
     }
 }

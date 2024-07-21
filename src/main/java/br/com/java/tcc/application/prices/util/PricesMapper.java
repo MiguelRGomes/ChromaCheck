@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.prices.util;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.prices.persistence.PricesEntity;
 import br.com.java.tcc.application.prices.persistence.PricesRepository;
 import br.com.java.tcc.application.prices.resources.PricesRequest;
@@ -13,8 +14,11 @@ import java.util.stream.Collectors;
 public class PricesMapper {
 
     public PricesEntity toPrices(PricesRequest pricesDTO){
+        CompanyEntity companyEntity = new CompanyEntity();
+        companyEntity.setId(pricesDTO.getCompanyEntity().getId());
 
         return PricesEntity.builder()
+                .companyEntity(companyEntity)
                 .name(pricesDTO.getName())
                 .square_meter(pricesDTO.getSquare_meter())
                 .fixed_price(pricesDTO.getFixed_price())
@@ -30,6 +34,7 @@ public class PricesMapper {
     }
 
     public void updatePricesData(PricesEntity pricesEntity, PricesRequest pricesDTO){
+        pricesEntity.setCompanyEntity(pricesDTO.getCompanyEntity());
         pricesEntity.setName(pricesDTO.getName());
         pricesEntity.setSquare_meter(pricesDTO.getSquare_meter());
         pricesEntity.setFixed_price(pricesDTO.getFixed_price());

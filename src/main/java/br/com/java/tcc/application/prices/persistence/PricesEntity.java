@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.prices.persistence;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,10 @@ public class PricesEntity {
     @Setter(AccessLevel.NONE)
     private Long Id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private CompanyEntity companyEntity;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -26,10 +31,14 @@ public class PricesEntity {
     private Float fixed_price;
 
     @Builder
-    public  PricesEntity(String name, Float square_meter, Float fixed_price){
+    public  PricesEntity(CompanyEntity companyEntity, String name, Float square_meter, Float fixed_price){
+        this.companyEntity = companyEntity;
         this.name = name;
         this.square_meter = square_meter;
         this.fixed_price = fixed_price;
     }
 
+    public void setId(Long id){
+        this.Id = id;
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.services.util;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.services.persistence.ServicesEntity;
 import br.com.java.tcc.application.services.resources.ServicesRequest;
 import br.com.java.tcc.application.services.resources.ServicesResponse;
@@ -12,8 +13,11 @@ import java.util.stream.Collectors;
 public class ServicesMapper {
 
     public ServicesEntity toServices(ServicesRequest servicesDTO){
+        CompanyEntity companyEntity = new CompanyEntity();
+        companyEntity.setId(servicesDTO.getCompanyEntity().getId());
 
         return ServicesEntity.builder()
+                .companyEntity(companyEntity)
                 .name(servicesDTO.getName())
                 .build();
     }
@@ -28,6 +32,7 @@ public class ServicesMapper {
     }
 
     public void updateServicesData(ServicesEntity servicesEntity, ServicesRequest servicesDTO){
+        servicesEntity.setCompanyEntity(servicesDTO.getCompanyEntity());
         servicesEntity.setName(servicesDTO.getName());
     }
 }

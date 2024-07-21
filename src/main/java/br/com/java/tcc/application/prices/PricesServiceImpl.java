@@ -1,5 +1,7 @@
 package br.com.java.tcc.application.prices;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
+import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.prices.persistence.PricesEntity;
 import br.com.java.tcc.application.prices.persistence.PricesRepository;
 import br.com.java.tcc.application.prices.resources.PricesController;
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Primary
@@ -20,6 +23,8 @@ public class PricesServiceImpl implements PricesService {
     private final PricesRepository pricesRepository;
 
     private final PricesMapper pricesMapper;
+
+    private final CompanyRepository companyRepository;
 
     @Override
     public PricesResponse findById(Long id){
@@ -35,7 +40,15 @@ public class PricesServiceImpl implements PricesService {
     public PricesResponse register(PricesRequest pricesDTO) {
         PricesEntity pricesEntity = pricesMapper.toPrices(pricesDTO);
 
-        return pricesMapper.toPricesDTO(pricesRepository.save(pricesEntity));
+        Optional<CompanyEntity> optional =  companyRepository.findById(pricesDTO.getCompanyEntity().getId());
+        if (optional.isPresent()){
+            CompanyEntity companyEntity =  optional.get();
+            pricesEntity.setCompanyEntity(companyEntity);
+            return pricesMapper.toPricesDTO(pricesRepository.save(pricesEntity));
+        }
+        else {
+            throw new RuntimeException("Company with id " + pricesDTO.getCompanyEntity().getId() + " not found");
+        }
     }
 
     @Override
