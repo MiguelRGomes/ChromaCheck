@@ -1,5 +1,7 @@
 package br.com.java.tcc.application.products;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
+import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.products.persistence.ProductEntity;
 import br.com.java.tcc.application.products.persistence.ProductRepository;
 import br.com.java.tcc.application.products.resources.ProductRequest;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Primary
@@ -19,6 +22,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     private final ProductMapper productMapper;
+
+    private final CompanyRepository companyRepository;
 
     @Override
     public ProductResponse findById(Long id) {
@@ -35,7 +40,15 @@ public class ProductServiceImpl implements ProductService {
 
         ProductEntity productEntity = productMapper.toProduct(productDTO);
 
-        return productMapper.toProductDTO(productRepository.save(productEntity));
+        Optional<CompanyEntity> optional = companyRepository.findById(productDTO.getCompanyEntity().getId());
+        if (optional.isPresent()){
+            CompanyEntity companyEntity = optional.get();
+            productEntity.setCompanyEntity(companyEntity);
+            return productMapper.toProductDTO(productRepository.save(productEntity));
+        }
+        else {
+            throw new RuntimeException("Company with id " + productDTO.getCompanyEntity().getId() + " not found");
+        }
     }
 
     @Override

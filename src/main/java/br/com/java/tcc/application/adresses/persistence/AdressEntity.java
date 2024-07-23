@@ -47,4 +47,8 @@ public class AdressEntity {
         this.city = city;
         this.uf = uf;
     }
+
+    public void setId(Long id){
+        this.id = id;
+    }
 }

@@ -12,11 +12,11 @@ import java.util.Date;
 public class BudgetResponse {
     private Long id;
 
+    private CompanyEntity companyEntity;
+
     private PersonEntity personEntity;
 
     private AdressEntity adressEntity;
-
-    private CompanyEntity companyEntity;
 
     private Date creation_date;
 
@@ -28,9 +28,9 @@ public class BudgetResponse {
 
     public BudgetResponse(BudgetEntity budgetEntity){
         this.id = budgetEntity.getId();
+        this.companyEntity = budgetEntity.getCompanyEntity();
         this.personEntity = budgetEntity.getPersonEntity();
         this.adressEntity = budgetEntity.getAdressEntity();
-        this.companyEntity = budgetEntity.getCompanyEntity();
         this.creation_date = budgetEntity.getCreation_date();
         this.expiration_date = budgetEntity.getExpiration_date();
         this.approval = budgetEntity.getApproval();

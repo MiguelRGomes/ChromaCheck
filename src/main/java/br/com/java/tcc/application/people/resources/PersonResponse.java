@@ -30,6 +30,4 @@ public class PersonResponse {
         this.fone = personEntity.getFone();
         this.email = personEntity.getEmail();
     }
-
-
 }

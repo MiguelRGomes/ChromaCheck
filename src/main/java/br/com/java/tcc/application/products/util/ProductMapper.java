@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.products.util;
 
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.products.persistence.ProductEntity;
 import br.com.java.tcc.application.products.resources.ProductRequest;
 import br.com.java.tcc.application.products.resources.ProductResponse;
@@ -12,8 +13,11 @@ import java.util.stream.Collectors;
 public class ProductMapper {
 
     public ProductEntity toProduct(ProductRequest productDTO){
+        CompanyEntity companyEntity = new CompanyEntity();
+        companyEntity.setId(productDTO.getCompanyEntity().getId());
 
         return ProductEntity.builder()
+                .companyEntity(companyEntity)
                 .name(productDTO.getName())
                 .description(productDTO.getDescription())
                 .build();
@@ -29,6 +33,7 @@ public class ProductMapper {
     }
 
     public void updateProductData(ProductEntity productEntity, ProductRequest productDTO){
+        productEntity.setCompanyEntity(productDTO.getCompanyEntity());
         productEntity.setName(productDTO.getName());
         productEntity.setDescription(productDTO.getDescription());
     }

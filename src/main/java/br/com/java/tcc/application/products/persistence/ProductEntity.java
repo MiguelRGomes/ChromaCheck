@@ -28,8 +28,12 @@ public class ProductEntity {
     private String description;
 
     @Builder
-    private ProductEntity(String name, String description){
+    private ProductEntity(CompanyEntity companyEntity, String name, String description){
+        this.companyEntity =  companyEntity;
         this.name = name;
         this.description = description;
+    }
+    public void setId(Long id){
+        this.Id = id;
     }
 }
