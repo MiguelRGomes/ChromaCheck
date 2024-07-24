@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonResponse> register(@RequestBody PersonRequest personRequest, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<PersonResponse> register(@Valid @RequestBody PersonRequest personRequest, UriComponentsBuilder uriBuilder) {
 
         PersonResponse personResponse = personService.register(personRequest);
 

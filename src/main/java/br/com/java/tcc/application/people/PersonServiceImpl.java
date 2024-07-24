@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import javax.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,11 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     @Transactional
-    public PersonResponse register(PersonRequest personDTO) {
+    public PersonResponse register(@Valid PersonRequest personDTO) {
+
+        if (!"C".equals(personDTO.getType()) && !"F".equals(personDTO.getType())) {
+            throw new IllegalArgumentException("Type must be either 'C' or 'F'");
+        }
 
         PersonEntity personEntity = personMapper.toPerson(personDTO);
 
