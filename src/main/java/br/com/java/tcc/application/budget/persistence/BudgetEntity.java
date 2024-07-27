@@ -3,6 +3,7 @@ package br.com.java.tcc.application.budget.persistence;
 import br.com.java.tcc.application.adresses.persistence.AdressEntity;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class BudgetEntity {
     @JoinColumn(name = "company_id")
     private CompanyEntity companyEntity;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private PersonEntity personEntity;

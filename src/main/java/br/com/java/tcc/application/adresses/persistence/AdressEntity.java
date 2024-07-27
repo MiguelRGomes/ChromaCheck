@@ -1,6 +1,7 @@
 package br.com.java.tcc.application.adresses.persistence;
 
 import br.com.java.tcc.application.people.persistence.PersonEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ public class AdressEntity {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private PersonEntity personEntity;
