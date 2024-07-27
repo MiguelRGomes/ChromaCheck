@@ -22,7 +22,6 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public CompanyResponse findById(Long id) {
-
         return companyMapper.toCompanyDTO(returnCompany(id));
     }
 
@@ -53,7 +52,9 @@ public class CompanyServiceImpl implements CompanyService{
         companyRepository.deleteById(id);
         return "Company id: " + id + " deleted";
     }
-    private CompanyEntity returnCompany(Long id) {
+
+    @Override
+    public CompanyEntity returnCompany(Long id) {
         return companyRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Company wasn't found on database"));
     }

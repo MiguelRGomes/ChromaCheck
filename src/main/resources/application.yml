@@ -27,3 +27,12 @@ spring:
           lob:
             non_contextual_creation: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  packages-to-scan: br.com.java.tcc.application
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+
+#  swagger-ui:
+#    tryItOutEnabled: true

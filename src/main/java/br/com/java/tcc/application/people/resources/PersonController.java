@@ -1,6 +1,8 @@
 package br.com.java.tcc.application.people.resources;
 
 import br.com.java.tcc.application.people.PersonService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +14,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/people")
+@Tag(name = "People", description = "EndPoints Gerenciamento de Pessoas")
 @RequiredArgsConstructor
 public class PersonController {
 
     private final PersonService personService;
 
+    @Operation(
+            summary = "Busca por ID",
+            description = "Ao executar o endpoint irá retornar os dados de uma pessoa respectivo ao id informado")
     @GetMapping(value = "/{id}")
     public ResponseEntity<PersonResponse> findById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok().body(personService.findById(id));

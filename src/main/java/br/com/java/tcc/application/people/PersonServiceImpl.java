@@ -1,21 +1,21 @@
 package br.com.java.tcc.application.people;
 
+import br.com.java.tcc.application.company.CompanyService;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
-import br.com.java.tcc.application.company.persistence.CompanyRepository;
-import br.com.java.tcc.application.people.PersonService;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.people.persistence.PersonRepository;
 import br.com.java.tcc.application.people.resources.PersonRequest;
 import br.com.java.tcc.application.people.resources.PersonResponse;
 import br.com.java.tcc.application.people.util.PersonMapper;
+import br.com.java.tcc.util.Util;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import javax.validation.Valid;
 
+import br.com.java.tcc.util.Util;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Primary
@@ -26,10 +26,11 @@ public class PersonServiceImpl implements PersonService {
 
     private final PersonMapper personMapper;
 
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     @Override
     public PersonResponse findById(Long id) {
+
         return personMapper.toPersonDTO(returnPerson(id));
     }
 
@@ -41,7 +42,11 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     @Transactional
-    public PersonResponse register(@Valid PersonRequest personDTO) {
+    public PersonResponse register(PersonRequest personDTO) {
+
+        if(!Util.validationDocument(personDTO.getCpf_cnpj())){
+            throw new RuntimeException("CPF/CNPj inválido");
+        }
 
         if (!"C".equals(personDTO.getType()) && !"F".equals(personDTO.getType())) {
             throw new IllegalArgumentException("Type must be either 'C' or 'F'");
@@ -49,15 +54,9 @@ public class PersonServiceImpl implements PersonService {
 
         PersonEntity personEntity = personMapper.toPerson(personDTO);
 
-        Optional<CompanyEntity> optional =  companyRepository.findById(personDTO.getCompanyEntity().getId());
-        if (optional.isPresent()){
-            CompanyEntity companyEntity = optional.get();
-            personEntity.setCompanyEntity(companyEntity);
-            return personMapper.toPersonDTO(personRepository.save(personEntity));
-        }
-        else {
-            throw new RuntimeException("Company with id " + personDTO.getCompanyEntity().getId() + " not found");
-        }
+        CompanyEntity companyEntity = companyService.returnCompany(personDTO.getCompanyEntity().getId());
+        personEntity.setCompanyEntity(companyEntity);
+        return personMapper.toPersonDTO(personRepository.save(personEntity));
     }
 
     @Override
