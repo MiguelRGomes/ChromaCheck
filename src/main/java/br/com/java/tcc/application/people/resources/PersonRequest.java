@@ -12,7 +12,6 @@ public class PersonRequest {
 
     private String name;
 
-    @CPFOrCNPJ
     private String cpf_cnpj;
 
     private String fone;

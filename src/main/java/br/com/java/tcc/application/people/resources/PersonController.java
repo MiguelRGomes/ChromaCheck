@@ -21,18 +21,24 @@ public class PersonController {
     private final PersonService personService;
 
     @Operation(
-            summary = "Busca por ID",
+            summary = "Buscar por ID",
             description = "Ao executar o endpoint irá retornar os dados de uma pessoa respectivo ao id informado")
     @GetMapping(value = "/{id}")
     public ResponseEntity<PersonResponse> findById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok().body(personService.findById(id));
     }
 
+    @Operation(
+            summary = "Buscar Todas Pessoas",
+            description = "Ao executar o endpoint irá retornar os dados de todas pessoas cadastradas")
     @GetMapping
     public ResponseEntity<List<PersonResponse>> findAll() {
         return ResponseEntity.ok().body(personService.findAll());
     }
 
+    @Operation(
+            summary = "Registrar Pessoas",
+            description = "Ao executar o endpoint irá cadastrar uma pessoa a partir dos dados informado")
     @PostMapping
     public ResponseEntity<PersonResponse> register(@Valid @RequestBody PersonRequest personRequest, UriComponentsBuilder uriBuilder) {
 
@@ -43,11 +49,17 @@ public class PersonController {
         return ResponseEntity.created(uri).body(personResponse);
     }
 
+    @Operation(
+            summary = "Atualizar por ID",
+            description = "Ao executar o endpoint irá atualizar os dados de uma pessoa respectivo ao id informado")
     @PutMapping(value = "/{id}")
     public ResponseEntity<PersonResponse> update(@RequestBody PersonRequest personDTO, @PathVariable(name = "id") Long id) {
         return ResponseEntity.ok().body(personService.update(id,personDTO));
     }
 
+    @Operation(
+            summary = "Deletar por ID",
+            description = "Ao executar o endpoint irá deletar os dados de uma pessoa respectivo ao id informado")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> delete(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok().body(personService.delete(id));
