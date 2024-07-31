@@ -6,6 +6,7 @@ import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.prices.persistence.PricesEntity;
 import br.com.java.tcc.application.services.persistence.ServicesEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,14 +24,17 @@ public class BudgetServiceEntity {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_id")
     private BudgetEntity budgetEntity;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "services_id")
     private ServicesEntity servicesEntity;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prices_id")
     private PricesEntity pricesEntity;
@@ -42,7 +46,10 @@ public class BudgetServiceEntity {
     private Float discount;
 
     @Builder
-    public BudgetServiceEntity(Float quantity, Float discount){
+    public BudgetServiceEntity(BudgetEntity budgetEntity, ServicesEntity servicesEntity, PricesEntity pricesEntity, Float quantity, Float discount){
+        this.budgetEntity = budgetEntity;
+        this.servicesEntity = servicesEntity;
+        this.pricesEntity = pricesEntity;
         this.quantity = quantity;
         this.discount = discount;
     }

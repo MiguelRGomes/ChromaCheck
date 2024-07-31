@@ -1,10 +1,14 @@
 package br.com.java.tcc.application.budget_products;
 
+import br.com.java.tcc.application.budget.BudgetService;
+import br.com.java.tcc.application.budget.persistence.BudgetEntity;
 import br.com.java.tcc.application.budget_products.persistence.BudgetProductEntity;
 import br.com.java.tcc.application.budget_products.persistence.BudgetProductRepository;
 import br.com.java.tcc.application.budget_products.resources.BudgetProductRequest;
 import br.com.java.tcc.application.budget_products.resources.BudgetProductResponse;
 import br.com.java.tcc.application.budget_products.util.BudgetProductMapper;
+import br.com.java.tcc.application.products.ProductService;
+import br.com.java.tcc.application.products.persistence.ProductEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -18,7 +22,8 @@ public class BudgetProductServiceImpl implements BudgetProductService {
 
     private final BudgetProductRepository budgetProductRepository;
     private final BudgetProductMapper budgetProductMapper;
-
+    private final BudgetService budgetService;
+    private final ProductService productService;
 
     @Override
     public BudgetProductResponse findById(Long id) {
@@ -34,6 +39,13 @@ public class BudgetProductServiceImpl implements BudgetProductService {
     @Override
     public BudgetProductResponse register(BudgetProductRequest budgetProductDTO) {
         BudgetProductEntity budgetProductEntity = budgetProductMapper.toBudgetProduct(budgetProductDTO);
+
+        BudgetEntity budgetEntity = budgetService.returnBudget(budgetProductDTO.getBudgetEntity().getId());
+        budgetProductEntity.setBudgetEntity(budgetEntity);
+
+        ProductEntity productEntity = productService.returnProducts(budgetProductDTO.getProductEntity().getId());
+        budgetProductEntity.setProductEntity(productEntity);
+
         return budgetProductMapper.toBudgetProductDTO(budgetProductRepository.save(budgetProductEntity));
     }
 
@@ -50,7 +62,7 @@ public class BudgetProductServiceImpl implements BudgetProductService {
         return "Budget Product id: " + id + " deleted";
     }
 
-    private BudgetProductEntity returnBudgetProduct(Long id){
+    public BudgetProductEntity returnBudgetProduct(Long id){
         return budgetProductRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Budget Product wasn't found on database"));
     }

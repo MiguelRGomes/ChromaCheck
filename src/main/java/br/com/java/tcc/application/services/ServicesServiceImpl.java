@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.services;
 
+import br.com.java.tcc.application.company.CompanyService;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.services.persistence.ServicesEntity;
@@ -23,7 +24,7 @@ public class ServicesServiceImpl implements ServicesService {
 
     private final ServicesMapper servicesMapper;
 
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     @Override
     public ServicesResponse findById(Long id) {
@@ -41,16 +42,10 @@ public class ServicesServiceImpl implements ServicesService {
     public ServicesResponse register(ServicesRequest servicesDTO){
 
         ServicesEntity servicesEntity = servicesMapper.toServices(servicesDTO);
+        CompanyEntity companyEntity = companyService.returnCompany(servicesDTO.getCompanyEntity().getId());
+        servicesEntity.setCompanyEntity(companyEntity);
 
-        Optional<CompanyEntity> optional =  companyRepository.findById(servicesDTO.getCompanyEntity().getId());
-        if (optional.isPresent()){
-            CompanyEntity companyEntity = optional.get();
-            servicesEntity.setCompanyEntity(companyEntity);
-            return servicesMapper.toServicesDTO(servicesRepository.save(servicesEntity));
-        }
-        else {
-            throw new RuntimeException("Company with id " + servicesDTO.getCompanyEntity().getId() + " not found");
-        }
+        return servicesMapper.toServicesDTO(servicesRepository.save(servicesEntity));
     }
 
     @Override
@@ -67,7 +62,7 @@ public class ServicesServiceImpl implements ServicesService {
         return "Services id: " + id + " deleted";
     }
 
-    private ServicesEntity returnServices(Long id) {
+    public ServicesEntity returnServices(Long id) {
         return servicesRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Services wasn't found on database"));
     }

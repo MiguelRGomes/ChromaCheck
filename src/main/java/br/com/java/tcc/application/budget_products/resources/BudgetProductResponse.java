@@ -20,10 +20,19 @@ public class BudgetProductResponse {
 
     private Float quantity;
 
+    private Float unit_price;
+
+    private Float total;
+
+    private Boolean approval;
+
     public BudgetProductResponse(BudgetProductEntity budgetProductEntity){
         this.id = budgetProductEntity.getId();
         this.budgetEntity = budgetProductEntity.getBudgetEntity();
         this.productEntity = budgetProductEntity.getProductEntity();
         this.quantity = budgetProductEntity.getQuantity();
+        this.unit_price = budgetProductEntity.getUnit_price();
+        this.total = budgetProductEntity.getTotal();
+        this.approval = budgetProductEntity.getApproval();
     }
 }

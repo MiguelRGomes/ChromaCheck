@@ -26,6 +26,11 @@ public class BudgetProductMapper {
     }
 
     public void updateBudgetProductData(BudgetProductEntity budgetProductEntity, BudgetProductRequest budgetProductDTO){
+        budgetProductEntity.setBudgetEntity(budgetProductDTO.getBudgetEntity());
+        budgetProductEntity.setProductEntity(budgetProductDTO.getProductEntity());
         budgetProductEntity.setQuantity(budgetProductDTO.getQuantity());
+        budgetProductEntity.setUnit_price(budgetProductDTO.getUnit_price());
+        budgetProductEntity.setTotal(budgetProductDTO.getTotal());
+        budgetProductEntity.setApproval(budgetProductDTO.getApproval());
     }
 }

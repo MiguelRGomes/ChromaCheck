@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.products;
 
+import br.com.java.tcc.application.products.persistence.ProductEntity;
 import br.com.java.tcc.application.products.resources.ProductRequest;
 import br.com.java.tcc.application.products.resources.ProductResponse;
 
@@ -9,6 +10,7 @@ public interface ProductService {
 
     ProductResponse findById(Long id);
 
+    ProductEntity returnProducts(Long id);
     List<ProductResponse> findAll();
 
     ProductResponse register(ProductRequest productDTO);

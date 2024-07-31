@@ -1,10 +1,16 @@
 package br.com.java.tcc.application.budget_services;
 
+import br.com.java.tcc.application.budget.BudgetService;
+import br.com.java.tcc.application.budget.persistence.BudgetEntity;
 import br.com.java.tcc.application.budget_services.persistence.BudgetServiceEntity;
 import br.com.java.tcc.application.budget_services.persistence.BudgetServiceRepository;
 import br.com.java.tcc.application.budget_services.resources.BudgetServiceRequest;
 import br.com.java.tcc.application.budget_services.resources.BudgetServiceResponse;
 import br.com.java.tcc.application.budget_services.util.BudgetServiceMapper;
+import br.com.java.tcc.application.prices.PricesService;
+import br.com.java.tcc.application.prices.persistence.PricesEntity;
+import br.com.java.tcc.application.services.ServicesService;
+import br.com.java.tcc.application.services.persistence.ServicesEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -18,6 +24,9 @@ public class BudgetServiceServiceImpl implements BudgetServiceService {
 
     private final BudgetServiceRepository budgetServiceRepository;
     private final BudgetServiceMapper budgetServiceMapper;
+    private final BudgetService budgetService;
+    private final ServicesService servicesService;
+    private final PricesService pricesService;
 
     @Override
     public BudgetServiceResponse findById(Long id) {
@@ -33,6 +42,16 @@ public class BudgetServiceServiceImpl implements BudgetServiceService {
     @Override
     public BudgetServiceResponse register(BudgetServiceRequest budgetServiceDTO) {
         BudgetServiceEntity budgetServiceEntity = budgetServiceMapper.toBudgetService(budgetServiceDTO);
+
+        BudgetEntity budgetEntity = budgetService.returnBudget(budgetServiceDTO.getBudgetEntity().getId());
+        budgetServiceEntity.setBudgetEntity(budgetEntity);
+
+        ServicesEntity servicesEntity = servicesService.returnServices(budgetServiceDTO.getServicesEntity().getId());
+        budgetServiceEntity.setServicesEntity(servicesEntity);
+
+        PricesEntity pricesEntity = pricesService.returnPrices(budgetServiceDTO.getPricesEntity().getId());
+        budgetServiceEntity.setPricesEntity(pricesEntity);
+
         return budgetServiceMapper.toBudgetServiceDTO(budgetServiceRepository.save(budgetServiceEntity));
     }
 

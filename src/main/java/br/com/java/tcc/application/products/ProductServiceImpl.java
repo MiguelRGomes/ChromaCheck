@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.products;
 
+import br.com.java.tcc.application.company.CompanyService;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.products.persistence.ProductEntity;
@@ -23,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductMapper productMapper;
 
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     @Override
     public ProductResponse findById(Long id) {
@@ -40,15 +41,10 @@ public class ProductServiceImpl implements ProductService {
 
         ProductEntity productEntity = productMapper.toProduct(productDTO);
 
-        Optional<CompanyEntity> optional = companyRepository.findById(productDTO.getCompanyEntity().getId());
-        if (optional.isPresent()){
-            CompanyEntity companyEntity = optional.get();
-            productEntity.setCompanyEntity(companyEntity);
-            return productMapper.toProductDTO(productRepository.save(productEntity));
-        }
-        else {
-            throw new RuntimeException("Company with id " + productDTO.getCompanyEntity().getId() + " not found");
-        }
+        CompanyEntity companyEntity = companyService.returnCompany(productDTO.getCompanyEntity().getId());
+        productEntity.setCompanyEntity(companyEntity);
+
+        return productMapper.toProductDTO(productRepository.save(productEntity));
     }
 
     @Override
@@ -64,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
         return "Product id: " + id + " deleted";
     }
 
-    private ProductEntity returnProducts(Long id) {
+    public ProductEntity returnProducts(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Product wasn't found on database"));
     }

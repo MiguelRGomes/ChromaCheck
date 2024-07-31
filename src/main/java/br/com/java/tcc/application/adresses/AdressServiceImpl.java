@@ -5,6 +5,7 @@ import br.com.java.tcc.application.adresses.persistence.AdressRepository;
 import br.com.java.tcc.application.adresses.resources.AdressRequest;
 import br.com.java.tcc.application.adresses.resources.AdressResponse;
 import br.com.java.tcc.application.adresses.util.AdressMapper;
+import br.com.java.tcc.application.people.PersonService;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.people.persistence.PersonRepository;
 import jakarta.transaction.Transactional;
@@ -23,7 +24,7 @@ public class AdressServiceImpl implements AdressService {
 
     private final AdressRepository adressRepository;
     private final AdressMapper adressMapper;
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
     @Override
     public AdressResponse findById(Long id) {
@@ -39,18 +40,11 @@ public class AdressServiceImpl implements AdressService {
     @Override
     @Transactional
     public AdressResponse register(AdressRequest adressDTO) {
-        AdressEntity  adressEntity = adressMapper.toAdress(adressDTO);
+        AdressEntity adressEntity = adressMapper.toAdress(adressDTO);
+        PersonEntity personEntity = personService.returnPerson(adressDTO.getPersonEntity().getId());
+        adressEntity.setPersonEntity(personEntity);
 
-        Optional<PersonEntity> optional = personRepository.findById(adressDTO.getPersonEntity().getId());
-
-        if (optional.isPresent()){
-            PersonEntity personEntity = optional.get();
-            adressEntity.setPersonEntity(personEntity);
-            return adressMapper.toAdressDTO(adressRepository.save(adressEntity));
-        }
-        else{
-            throw new RuntimeException("Person with id " + adressDTO.getPersonEntity().getId() + " not found");
-        }
+        return adressMapper.toAdressDTO(adressRepository.save(adressEntity));
     }
 
     @Override
@@ -66,7 +60,7 @@ public class AdressServiceImpl implements AdressService {
         return "Adress id: " + id + " deleted";
     }
 
-    private AdressEntity returnAdress(Long id){
+    public AdressEntity returnAdress(Long id){
         return adressRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Adress wasn't found on database"));
     }

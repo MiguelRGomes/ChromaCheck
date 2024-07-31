@@ -5,6 +5,7 @@ import br.com.java.tcc.application.budget.persistence.BudgetEntity;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.products.persistence.ProductEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,10 +23,12 @@ public class BudgetProductEntity {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_id")
     private BudgetEntity budgetEntity;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private ProductEntity productEntity;
@@ -33,8 +36,21 @@ public class BudgetProductEntity {
     @Column(name = "quantity", nullable = false)
     private Float quantity;
 
+    @Column(name = "unit_price", nullable = false)
+    private Float unit_price;
+
+    @Column(name = "total", nullable = false)
+    private Float total;
+
+    @Column(name = "approval", nullable = false)
+    private Boolean approval;
     @Builder
-    public BudgetProductEntity(Float quantity){
+    public BudgetProductEntity(BudgetEntity budgetEntity, ProductEntity productEntity, Float quantity, Float unit_price, Float total, Boolean approval){
+        this.budgetEntity = budgetEntity;
+        this.productEntity = productEntity;
         this.quantity = quantity;
+        this.unit_price = unit_price;
+        this.total = total;
+        this.approval = approval;
     }
 }

@@ -75,7 +75,7 @@ public class PersonServiceImpl implements PersonService {
         return "Person id: "+id+" deleted";
     }
 
-    private PersonEntity returnPerson(Long id) {
+    public PersonEntity returnPerson(Long id) {
         return personRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Person wasn't fount on database"));
     }

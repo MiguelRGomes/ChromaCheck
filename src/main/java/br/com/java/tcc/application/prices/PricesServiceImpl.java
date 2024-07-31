@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.prices;
 
+import br.com.java.tcc.application.company.CompanyService;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.prices.persistence.PricesEntity;
@@ -24,7 +25,7 @@ public class PricesServiceImpl implements PricesService {
 
     private final PricesMapper pricesMapper;
 
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     @Override
     public PricesResponse findById(Long id){
@@ -40,15 +41,10 @@ public class PricesServiceImpl implements PricesService {
     public PricesResponse register(PricesRequest pricesDTO) {
         PricesEntity pricesEntity = pricesMapper.toPrices(pricesDTO);
 
-        Optional<CompanyEntity> optional =  companyRepository.findById(pricesDTO.getCompanyEntity().getId());
-        if (optional.isPresent()){
-            CompanyEntity companyEntity =  optional.get();
-            pricesEntity.setCompanyEntity(companyEntity);
-            return pricesMapper.toPricesDTO(pricesRepository.save(pricesEntity));
-        }
-        else {
-            throw new RuntimeException("Company with id " + pricesDTO.getCompanyEntity().getId() + " not found");
-        }
+        CompanyEntity companyEntity = companyService.returnCompany(pricesDTO.getCompanyEntity().getId());
+        pricesEntity.setCompanyEntity(companyEntity);
+
+        return pricesMapper.toPricesDTO(pricesRepository.save(pricesEntity));
     }
 
     @Override
@@ -63,7 +59,7 @@ public class PricesServiceImpl implements PricesService {
         pricesRepository.deleteById(id);
         return "Prices id: " + id + " deleted";
     }
-    private PricesEntity returnPrices(Long id) {
+    public PricesEntity returnPrices(Long id) {
         return pricesRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Prices wasn't found on database"));
     }
