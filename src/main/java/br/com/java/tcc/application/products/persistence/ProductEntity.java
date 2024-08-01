@@ -1,6 +1,7 @@
 package br.com.java.tcc.application.products.persistence;
 
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class ProductEntity {
     @Setter(AccessLevel.NONE)
     private Long Id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private CompanyEntity companyEntity;

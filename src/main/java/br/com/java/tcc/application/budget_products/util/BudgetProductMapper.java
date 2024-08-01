@@ -1,8 +1,10 @@
 package br.com.java.tcc.application.budget_products.util;
 
+import br.com.java.tcc.application.budget.persistence.BudgetEntity;
 import br.com.java.tcc.application.budget_products.persistence.BudgetProductEntity;
 import br.com.java.tcc.application.budget_products.resources.BudgetProductRequest;
 import br.com.java.tcc.application.budget_products.resources.BudgetProductResponse;
+import br.com.java.tcc.application.products.persistence.ProductEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,8 +14,19 @@ import java.util.stream.Collectors;
 public class BudgetProductMapper {
 
     public BudgetProductEntity toBudgetProduct(BudgetProductRequest budgetProductDTO){
+        BudgetEntity budgetEntity = new BudgetEntity();
+        budgetEntity.setId(budgetProductDTO.getBudgetEntity().getId());
+
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setId(budgetProductDTO.getProductEntity().getId());
+
         return BudgetProductEntity.builder()
-                .quantity((budgetProductDTO.getQuantity()))
+                .budgetEntity(budgetEntity)
+                .productEntity(productEntity)
+                .quantity(budgetProductDTO.getQuantity())
+                .unit_price(budgetProductDTO.getUnit_price())
+                .total(budgetProductDTO.getTotal())
+                .approval(Boolean.parseBoolean(budgetProductDTO.getApproval()))
                 .build();
     }
 
@@ -31,6 +44,6 @@ public class BudgetProductMapper {
         budgetProductEntity.setQuantity(budgetProductDTO.getQuantity());
         budgetProductEntity.setUnit_price(budgetProductDTO.getUnit_price());
         budgetProductEntity.setTotal(budgetProductDTO.getTotal());
-        budgetProductEntity.setApproval(budgetProductDTO.getApproval());
+        budgetProductEntity.setApproval(Boolean.parseBoolean(budgetProductDTO.getApproval()));
     }
 }

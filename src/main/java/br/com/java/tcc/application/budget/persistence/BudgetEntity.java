@@ -25,7 +25,6 @@ public class BudgetEntity {
     @JoinColumn(name = "company_id")
     private CompanyEntity companyEntity;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private PersonEntity personEntity;

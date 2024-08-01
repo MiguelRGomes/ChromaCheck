@@ -23,7 +23,6 @@ public class BudgetProductEntity {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_id")
     private BudgetEntity budgetEntity;
@@ -52,5 +51,9 @@ public class BudgetProductEntity {
         this.unit_price = unit_price;
         this.total = total;
         this.approval = approval;
+    }
+
+    public void setId(Long id){
+        this.id = id;
     }
 }

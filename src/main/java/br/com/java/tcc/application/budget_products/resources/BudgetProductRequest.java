@@ -18,5 +18,5 @@ public class BudgetProductRequest {
 
     private Float total;
 
-    private Boolean approval;
+    private String approval;
 }

@@ -1,7 +1,6 @@
 package br.com.java.tcc.application.people.resources;
 
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
-import br.com.java.tcc.configuration.validation.CPFOrCNPJ.CPFOrCNPJ;
 import lombok.Getter;
 
 @Getter

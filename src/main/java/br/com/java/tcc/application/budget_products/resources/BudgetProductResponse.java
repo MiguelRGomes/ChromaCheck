@@ -6,6 +6,7 @@ import br.com.java.tcc.application.budget_products.persistence.BudgetProductEnti
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.products.persistence.ProductEntity;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.Date;

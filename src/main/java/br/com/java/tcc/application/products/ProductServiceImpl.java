@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse findById(Long id) {
+
         return productMapper.toProductDTO(returnProducts(id));
     }
 

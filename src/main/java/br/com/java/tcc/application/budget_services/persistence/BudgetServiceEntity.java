@@ -24,17 +24,14 @@ public class BudgetServiceEntity {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_id")
     private BudgetEntity budgetEntity;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "services_id")
+    @JoinColumn(name = "service_id")
     private ServicesEntity servicesEntity;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prices_id")
     private PricesEntity pricesEntity;
