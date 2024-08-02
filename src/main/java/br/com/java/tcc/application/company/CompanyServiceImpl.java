@@ -5,8 +5,13 @@ import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.company.resources.CompanyRequest;
 import br.com.java.tcc.application.company.resources.CompanyResponse;
 import br.com.java.tcc.application.company.util.CompanyMapper;
+import br.com.java.tcc.configuration.MessageCodeEnum;
+import br.com.java.tcc.configuration.MessageConfiguration;
+import br.com.java.tcc.exceptions.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +20,9 @@ import java.util.List;
 @Primary
 @RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService{
+
+    @Autowired
+    MessageConfiguration messageConfiguration;
 
     private final CompanyRepository companyRepository;
 
@@ -56,6 +64,6 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public CompanyEntity returnCompany(Long id) {
         return companyRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Company wasn't found on database"));
+                .orElseThrow(()-> new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Empresa)"), HttpStatus.NOT_FOUND));
     }
 }

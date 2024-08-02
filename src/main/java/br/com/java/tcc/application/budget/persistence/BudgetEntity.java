@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity

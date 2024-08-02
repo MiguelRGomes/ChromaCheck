@@ -42,4 +42,5 @@ public final class Util {
         if (digit2 > 9) digit2 = 0;
         return cnpj.charAt(12) - '0' == digit1 && cnpj.charAt(13) - '0' == digit2;
     }
+
 }

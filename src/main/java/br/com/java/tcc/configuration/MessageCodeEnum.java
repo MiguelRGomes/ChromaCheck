@@ -13,6 +13,7 @@ public enum MessageCodeEnum {
     COLUMN_NOT_FOUND("column.not.found"),
     INVALID_POST_CODE("invalid.postal.code"),
     INVALID_STATE("invalid.state"),
+    INVALID_ADDRESS_PERSON("invalid.address.person"),
     STATE_NOT_FOUND("state.not.exists"),
     START_POSTAL_CODE_ALREADY_CADASTRE("start.postal.code.already.cadastre"),
     END_POSTAL_CODE_ALREADY_CADASTRE("end.postal.code.already.cadastre"),

@@ -44,12 +44,26 @@ public class BudgetMapper {
     }
 
     public void updateBudgetData(BudgetEntity budgetEntity, BudgetRequest budgetDTO){
-        budgetEntity.setCompanyEntity(budgetDTO.getCompanyEntity());
-        budgetEntity.setPersonEntity(budgetDTO.getPersonEntity());
-        budgetEntity.setAdressEntity(budgetDTO.getAdressEntity());
-        budgetEntity.setCreation_date(budgetDTO.getCreation_date());
-        budgetEntity.setExpiration_date(budgetDTO.getExpiration_date());
-        budgetEntity.setApproval(Boolean.parseBoolean(budgetDTO.getApproval()));
-        budgetEntity.setTotal(budgetDTO.getTotal());
+        if (budgetDTO.getCompanyEntity() != null) {
+            budgetEntity.setCompanyEntity(budgetDTO.getCompanyEntity());
+        }
+        if (budgetDTO.getPersonEntity() != null) {
+            budgetEntity.setPersonEntity(budgetDTO.getPersonEntity());
+        }
+        if (budgetDTO.getAdressEntity() != null) {
+            budgetEntity.setAdressEntity(budgetDTO.getAdressEntity());
+        }
+        if (budgetDTO.getCreation_date() != null) {
+            budgetEntity.setCreation_date(budgetDTO.getCreation_date());
+        }
+        if (budgetDTO.getExpiration_date() != null) {
+            budgetEntity.setExpiration_date(budgetDTO.getExpiration_date());
+        }
+        if (budgetDTO.getApproval() != null) {
+            budgetEntity.setApproval(Boolean.parseBoolean(budgetDTO.getApproval()));
+        }
+        if (budgetDTO.getTotal() != null) {
+            budgetEntity.setTotal(budgetDTO.getTotal());
+        }
     }
 }

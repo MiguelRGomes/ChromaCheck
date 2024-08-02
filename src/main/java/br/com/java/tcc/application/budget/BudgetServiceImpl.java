@@ -14,8 +14,13 @@ import br.com.java.tcc.application.company.persistence.CompanyRepository;
 import br.com.java.tcc.application.people.PersonService;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.people.persistence.PersonRepository;
+import br.com.java.tcc.configuration.MessageCodeEnum;
+import br.com.java.tcc.configuration.MessageConfiguration;
+import br.com.java.tcc.exceptions.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -32,6 +37,9 @@ public class BudgetServiceImpl implements BudgetService {
     private final CompanyService companyService;
     private final PersonService personService;
     private final AdressService adressService;
+
+    @Autowired
+    MessageConfiguration messageConfiguration;
 
     @Override
     public BudgetResponse findById(Long id) {
@@ -59,7 +67,8 @@ public class BudgetServiceImpl implements BudgetService {
 
         // Verifica se a adressEntity pertence à personEntity
         if (!adressEntity.getPersonEntity().getId().equals(personEntity.getId())) {
-            throw new RuntimeException("Address with id " + adressEntity.getId() + " does not belong to Person with id " + personEntity.getId());
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.INVALID_ADDRESS_PERSON),
+                    HttpStatus.BAD_REQUEST);
         }
 
         return budgetMapper.toBudgetDTO(budgetRepository.save(budgetEntity));
@@ -67,19 +76,27 @@ public class BudgetServiceImpl implements BudgetService {
 
     @Override
     public BudgetResponse update(Long id, BudgetRequest budgetDTO) {
+        if (!budgetRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Orçamento)"), HttpStatus.NOT_FOUND);
+        }
+
         BudgetEntity budgetEntity = returnBudget(id);
         budgetMapper.updateBudgetData(budgetEntity, budgetDTO);
-        return budgetMapper.toBudgetDTO (budgetRepository.save(budgetEntity));
+        BudgetEntity updateEnity = budgetRepository.save(budgetEntity);
+        return budgetMapper.toBudgetDTO(updateEnity);
     }
 
     @Override
     public String delete(Long id) {
-        budgetRepository .deleteById(id);
-        return "Budget id: " + id + " deleted";
+        if (!budgetRepository.existsById(id)){
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Orçamento)"), HttpStatus.NOT_FOUND);
+        }
+        budgetRepository.deleteById(id);
+        return "Orçamento id: " + id + " deletado";
     }
 
     public BudgetEntity returnBudget(Long id){
         return budgetRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Budget wasn't found on database"));
+                .orElseThrow(()-> new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Orçamento)"), HttpStatus.NOT_FOUND));
     }
 }

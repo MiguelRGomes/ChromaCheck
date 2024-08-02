@@ -7,7 +7,6 @@ import br.com.java.tcc.application.adresses.resources.AdressResponse;
 import br.com.java.tcc.application.adresses.util.AdressMapper;
 import br.com.java.tcc.application.people.PersonService;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
-import br.com.java.tcc.application.people.persistence.PersonRepository;
 import br.com.java.tcc.configuration.MessageCodeEnum;
 import br.com.java.tcc.configuration.MessageConfiguration;
 import br.com.java.tcc.exceptions.CustomException;
@@ -16,11 +15,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalInt;
 
 @Service
 @Primary
@@ -29,6 +27,9 @@ public class AdressServiceImpl implements AdressService {
 
     @Autowired
     MessageConfiguration messageConfiguration;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     private final AdressRepository adressRepository;
     private final AdressMapper adressMapper;
@@ -52,6 +53,13 @@ public class AdressServiceImpl implements AdressService {
         PersonEntity personEntity = personService.returnPerson(adressDTO.getPersonEntity().getId());
         adressEntity.setPersonEntity(personEntity);
 
+        // Valida a UF fornecida
+        if (adressDTO.getUf() != null && !isUfValid(adressDTO.getUf())) {
+            throw new CustomException(
+                    messageConfiguration.getMessageByCode(MessageCodeEnum.INVALID_STATE, adressDTO.getUf()),
+                    HttpStatus.BAD_REQUEST);
+        }
+
         return adressMapper.toAdressDTO(adressRepository.save(adressEntity));
     }
 
@@ -61,15 +69,10 @@ public class AdressServiceImpl implements AdressService {
             throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Endereço)"), HttpStatus.NOT_FOUND);
         }
 
-        AdressEntity adressEntity = returnAdress(id);
-
-        // Verifique se o valor de 'adress' no 'adressDTO' não é nulo
-        if (adressDTO.getAdress() == null) {
-            throw new CustomException("O campo 'adress' não pode ser nulo", HttpStatus.BAD_REQUEST);
-        }
-
-        adressMapper.updateAdressData(adressEntity, adressDTO);
-        return adressMapper.toAdressDTO(adressRepository.save(adressEntity));
+        AdressEntity adressEntity = returnAdress(id); // Busca a entidade existente
+        adressMapper.updateAdressData(adressEntity, adressDTO); // Atualiza os campos conforme o DTO
+        AdressEntity updatedEntity = adressRepository.save(adressEntity); // Salva a entidade atualizada
+        return adressMapper.toAdressDTO(updatedEntity); // Retorna a resposta DT
     }
 
     @Override
@@ -86,5 +89,12 @@ public class AdressServiceImpl implements AdressService {
         return adressRepository.findById(id)
                 //.orElseThrow(()-> new RuntimeException("Adress wasn't found on database"));
                 .orElseThrow(()-> new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Endereço)"), HttpStatus.NOT_FOUND));
+    }
+
+    public boolean isUfValid(String uf) {
+        String sql = "SELECT COUNT(*) FROM country_states WHERE state_code = ?";
+        // Usando query() para obter uma lista de resultados, se necessário
+        List<Integer> results = jdbcTemplate.query(sql, new Object[]{uf}, (rs, rowNum) -> rs.getInt(1));
+        return !results.isEmpty() && results.get(0) > 0;
     }
 }
