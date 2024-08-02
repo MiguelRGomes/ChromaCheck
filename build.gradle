@@ -41,6 +41,7 @@ dependencies {
 	// Spring Boot Starter Validation (se você estiver usando Spring Boot)
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 }
 
 tasks.named('test') {

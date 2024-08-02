@@ -7,10 +7,15 @@ import br.com.java.tcc.application.people.persistence.PersonRepository;
 import br.com.java.tcc.application.people.resources.PersonRequest;
 import br.com.java.tcc.application.people.resources.PersonResponse;
 import br.com.java.tcc.application.people.util.PersonMapper;
+import br.com.java.tcc.configuration.MessageCodeEnum;
+import br.com.java.tcc.configuration.MessageConfiguration;
+import br.com.java.tcc.exceptions.CustomException;
 import br.com.java.tcc.util.Util;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.java.tcc.util.Util;
@@ -21,6 +26,9 @@ import java.util.List;
 @Primary
 @RequiredArgsConstructor
 public class PersonServiceImpl implements PersonService {
+
+    @Autowired
+    MessageConfiguration messageConfiguration;
 
     private final PersonRepository personRepository;
 
@@ -77,7 +85,7 @@ public class PersonServiceImpl implements PersonService {
 
     public PersonEntity returnPerson(Long id) {
         return personRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Person wasn't fount on database"));
+                .orElseThrow(()-> new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Pessoa)"), HttpStatus.NOT_FOUND));
     }
 
 }

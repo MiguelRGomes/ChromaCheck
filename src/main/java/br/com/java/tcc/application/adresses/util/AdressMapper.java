@@ -36,11 +36,23 @@ public class AdressMapper {
     }
 
     public void updateAdressData(AdressEntity adressEntity, AdressRequest adressDTO){
-        adressEntity.setAdress(adressDTO.getAdress());
-        adressEntity.setNumber(adressDTO.getNumber());
-        adressEntity.setDistrict(adressDTO.getDistrict());
-        adressEntity.setCep(adressDTO.getCep());
-        adressEntity.setCity(adressDTO.getCity());
-        adressEntity.setUf(adressDTO.getUf());
+        if (adressDTO.getAdress() != null) {
+            adressEntity.setAdress(adressDTO.getAdress());
+        }
+        if (adressDTO.getNumber() != null) {
+            adressEntity.setNumber(adressDTO.getNumber());
+        }
+        if (adressDTO.getDistrict() != null) {
+            adressEntity.setDistrict(adressDTO.getDistrict());
+        }
+        if (adressDTO.getCep() != null) {
+            adressEntity.setCep(adressDTO.getCep());
+        }
+        if (adressDTO.getCity() != null) {
+            adressEntity.setCity(adressDTO.getCity());
+        }
+        if (adressDTO.getUf() != null) {
+            adressEntity.setUf(adressDTO.getUf());
+        }
     }
 }
