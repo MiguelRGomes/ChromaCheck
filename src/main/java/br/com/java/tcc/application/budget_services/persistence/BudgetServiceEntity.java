@@ -8,6 +8,7 @@ import br.com.java.tcc.application.prices.persistence.PricesEntity;
 import br.com.java.tcc.application.services.persistence.ServicesEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.util.Date;
@@ -36,6 +37,7 @@ public class BudgetServiceEntity {
     @JoinColumn(name = "prices_id")
     private PricesEntity pricesEntity;
 
+    @Positive(message = "A quantidade deve ser maior que 0.")
     @Column(name = "quantity", nullable = false)
     private Float quantity;
 

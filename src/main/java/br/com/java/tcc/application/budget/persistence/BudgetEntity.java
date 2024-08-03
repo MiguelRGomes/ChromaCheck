@@ -5,6 +5,7 @@ import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;

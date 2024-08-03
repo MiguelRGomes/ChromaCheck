@@ -3,6 +3,8 @@ package br.com.java.tcc.application.prices.persistence;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 @Entity
@@ -23,12 +25,15 @@ public class PricesEntity {
     @JoinColumn(name = "company_id", nullable = false)
     private CompanyEntity companyEntity;
 
+    @NotBlank(message = "O nome é obrigatório e não pode estar vazio.")
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Positive(message = "A medida deve ser maior que 0.")
     @Column(name = "square_meter", nullable = true)
     private Float square_meter;
 
+    @Positive(message = "O preço deve ser maior que 0.")
     @Column(name = "fixed_price", nullable = true)
     private Float fixed_price;
 

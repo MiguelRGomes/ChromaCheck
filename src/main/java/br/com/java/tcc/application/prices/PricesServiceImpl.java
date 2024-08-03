@@ -9,8 +9,13 @@ import br.com.java.tcc.application.prices.resources.PricesController;
 import br.com.java.tcc.application.prices.resources.PricesRequest;
 import br.com.java.tcc.application.prices.resources.PricesResponse;
 import br.com.java.tcc.application.prices.util.PricesMapper;
+import br.com.java.tcc.configuration.MessageCodeEnum;
+import br.com.java.tcc.configuration.MessageConfiguration;
+import br.com.java.tcc.exceptions.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +31,9 @@ public class PricesServiceImpl implements PricesService {
     private final PricesMapper pricesMapper;
 
     private final CompanyService companyService;
+
+    @Autowired
+    MessageConfiguration messageConfiguration;
 
     @Override
     public PricesResponse findById(Long id){
@@ -49,18 +57,27 @@ public class PricesServiceImpl implements PricesService {
 
     @Override
     public PricesResponse update(Long id, PricesRequest pricesDTO){
+        if (!pricesRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Tabela de Preços)"), HttpStatus.NOT_FOUND);
+        }
+
         PricesEntity pricesEntity = returnPrices(id);
         pricesMapper.updatePricesData(pricesEntity, pricesDTO);
-        return pricesMapper.toPricesDTO(pricesRepository.save(pricesEntity));
+        PricesEntity updateEntity = pricesRepository.save(pricesEntity);
+        return pricesMapper.toPricesDTO(updateEntity);
     }
 
     @Override
     public String delete(Long id) {
+        if (!pricesRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Tabela de Preços)"), HttpStatus.NOT_FOUND);
+        }
+
         pricesRepository.deleteById(id);
-        return "Prices id: " + id + " deleted";
+        return "Preço id: " + id + " deletado";
     }
     public PricesEntity returnPrices(Long id) {
         return pricesRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Prices wasn't found on database"));
+                .orElseThrow(()-> new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Tabela de Preços)"), HttpStatus.NOT_FOUND));
     }
 }

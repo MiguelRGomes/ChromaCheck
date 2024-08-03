@@ -9,8 +9,13 @@ import br.com.java.tcc.application.budget_products.resources.BudgetProductRespon
 import br.com.java.tcc.application.budget_products.util.BudgetProductMapper;
 import br.com.java.tcc.application.products.ProductService;
 import br.com.java.tcc.application.products.persistence.ProductEntity;
+import br.com.java.tcc.configuration.MessageCodeEnum;
+import br.com.java.tcc.configuration.MessageConfiguration;
+import br.com.java.tcc.exceptions.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +24,9 @@ import java.util.List;
 @Primary
 @RequiredArgsConstructor
 public class BudgetProductServiceImpl implements BudgetProductService {
+
+    @Autowired
+    MessageConfiguration messageConfiguration;
 
     private final BudgetProductRepository budgetProductRepository;
     private final BudgetProductMapper budgetProductMapper;
@@ -51,19 +59,27 @@ public class BudgetProductServiceImpl implements BudgetProductService {
 
     @Override
     public BudgetProductResponse update(Long id, BudgetProductRequest budgetProductDTO) {
+        if (!budgetProductRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Produto do Orçamento)"), HttpStatus.NOT_FOUND);
+        }
+
         BudgetProductEntity budgetProductEntity = returnBudgetProduct(id);
         budgetProductMapper.updateBudgetProductData(budgetProductEntity, budgetProductDTO);
-        return budgetProductMapper.toBudgetProductDTO (budgetProductRepository.save(budgetProductEntity));
+        BudgetProductEntity updatedEntity = budgetProductRepository.save(budgetProductEntity);
+        return budgetProductMapper.toBudgetProductDTO(updatedEntity);
     }
 
     @Override
     public String delete(Long id) {
+        if (!budgetProductRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Produto do Orçamento)"), HttpStatus.NOT_FOUND);
+        }
         budgetProductRepository .deleteById(id);
-        return "Budget Product id: " + id + " deleted";
+        return "Produto do Orçamento: " + id + " deletado";
     }
 
     public BudgetProductEntity returnBudgetProduct(Long id){
         return budgetProductRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Budget Product wasn't found on database"));
+                .orElseThrow(()-> new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Produto do Orçamento)"), HttpStatus.NOT_FOUND));
     }
 }

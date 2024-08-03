@@ -24,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,6 +72,13 @@ public class BudgetServiceImpl implements BudgetService {
                     HttpStatus.BAD_REQUEST);
         }
 
+        if (budgetEntity.getCreation_date() == null) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.INVALID_DATE_CREATION), HttpStatus.BAD_REQUEST);
+        }
+        if (budgetEntity.getCreation_date().after(new Date())) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.INVALID_DATE_FUTURE), HttpStatus.BAD_REQUEST);
+        }
+
         return budgetMapper.toBudgetDTO(budgetRepository.save(budgetEntity));
     }
 
@@ -82,8 +90,8 @@ public class BudgetServiceImpl implements BudgetService {
 
         BudgetEntity budgetEntity = returnBudget(id);
         budgetMapper.updateBudgetData(budgetEntity, budgetDTO);
-        BudgetEntity updateEnity = budgetRepository.save(budgetEntity);
-        return budgetMapper.toBudgetDTO(updateEnity);
+        BudgetEntity updateEntity = budgetRepository.save(budgetEntity);
+        return budgetMapper.toBudgetDTO(updateEntity);
     }
 
     @Override

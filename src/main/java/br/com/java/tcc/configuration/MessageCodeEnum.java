@@ -14,6 +14,10 @@ public enum MessageCodeEnum {
     INVALID_POST_CODE("invalid.postal.code"),
     INVALID_STATE("invalid.state"),
     INVALID_ADDRESS_PERSON("invalid.address.person"),
+    INVALID_DATE_CREATION("invalid.date.creation"),
+
+    INVALID_DATE_FUTURE("invalid.date.future"),
+
     STATE_NOT_FOUND("state.not.exists"),
     START_POSTAL_CODE_ALREADY_CADASTRE("start.postal.code.already.cadastre"),
     END_POSTAL_CODE_ALREADY_CADASTRE("end.postal.code.already.cadastre"),

@@ -4,6 +4,7 @@ import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -24,6 +25,7 @@ public class ServicesEntity {
     @JoinColumn(name = "company_id")
     private CompanyEntity companyEntity;
 
+    @NotBlank(message = "O nome é obrigatório e não pode estar vazio.")
     @Column(name = "name", nullable = false)
     private String name;
 

@@ -36,11 +36,23 @@ public class PersonMapper {
     }
 
     public void updatePersonData(PersonEntity personEntity, PersonRequest personDTO){
-        personEntity.setCompanyEntity(personDTO.getCompanyEntity());
-        personEntity.setType(personDTO.getType());
-        personEntity.setName(personDTO.getName());
-        personEntity.setCpf_cnpj(personDTO.getCpf_cnpj());
-        personEntity.setFone(personDTO.getFone());
-        personEntity.setEmail(personDTO.getEmail());
+        if (personDTO.getCompanyEntity() != null) {
+            personEntity.setCompanyEntity(personDTO.getCompanyEntity());
+        }
+        if (personDTO.getType() != null) {
+            personEntity.setType(personDTO.getType());
+        }
+        if (personDTO.getName() != null) {
+            personEntity.setName(personDTO.getName());
+        }
+        if (personDTO.getCpf_cnpj() != null) {
+            personEntity.setCpf_cnpj(personDTO.getCpf_cnpj());
+        }
+        if (personDTO.getFone() != null) {
+            personEntity.setFone(personDTO.getFone());
+        }
+        if (personDTO.getEmail() != null) {
+            personEntity.setEmail(personDTO.getEmail());
+        }
     }
 }

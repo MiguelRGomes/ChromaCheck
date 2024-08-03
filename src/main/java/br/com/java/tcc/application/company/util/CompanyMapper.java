@@ -37,15 +37,35 @@ public class CompanyMapper {
     }
 
     public void updateCompanyData(CompanyEntity companyEntity, CompanyRequest companyDTO){
-        companyEntity.setCnpj(companyDTO.getCnpj());
-        companyEntity.setName(companyDTO.getName());
-        companyEntity.setAddress(companyDTO.getAddress());
-        companyEntity.setNumber(companyDTO.getNumber());
-        companyEntity.setDistrict(companyDTO.getDistrict());
-        companyEntity.setCep(companyDTO.getCep());
-        companyEntity.setCity(companyDTO.getCity());
-        companyEntity.setUf(companyDTO.getUf());
-        companyEntity.setFone(companyDTO.getFone());
-        companyEntity.setEmail(companyDTO.getEmail());
+        if (companyDTO.getCnpj() != null) {
+            companyEntity.setCnpj(companyDTO.getCnpj());
+        }
+        if (companyDTO.getName() != null) {
+            companyEntity.setName(companyDTO.getName());
+        }
+        if (companyDTO.getAddress() != null) {
+            companyEntity.setAddress(companyDTO.getAddress());
+        }
+        if (companyDTO.getNumber() != null) {
+            companyEntity.setNumber(companyDTO.getNumber());
+        }
+        if (companyDTO.getDistrict() != null) {
+            companyEntity.setDistrict(companyDTO.getDistrict());
+        }
+        if (companyDTO.getCep() != null) {
+            companyEntity.setCep(companyDTO.getCep());
+        }
+        if (companyDTO.getCity() != null) {
+            companyEntity.setCity(companyDTO.getCity());
+        }
+        if (companyDTO.getUf() != null) {
+            companyEntity.setUf(companyDTO.getUf());
+        }
+        if (companyDTO.getFone() != null) {
+            companyEntity.setFone(companyDTO.getFone());
+        }
+        if (companyDTO.getEmail() != null) {
+            companyEntity.setEmail(companyDTO.getEmail());
+        }
     }
 }

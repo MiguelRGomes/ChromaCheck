@@ -1,6 +1,8 @@
 package br.com.java.tcc.application.company.persistence;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 @Entity
@@ -19,30 +21,39 @@ public class CompanyEntity {
     @Column(name = "cnpj", nullable = false, unique = true)
     private String cnpj;
 
+    @NotBlank(message = "O nome é obrigatório e não pode estar vazio.")
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotBlank(message = "O endereço é obrigatório e não pode estar vazio.")
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Positive(message = "O número deve ser maior que 0.")
     @Column(name = "number", nullable = false)
     private Integer number;
 
+    @NotBlank(message = "O bairro é obrigatório e não pode estar vazio.")
     @Column(name = "district", nullable = false)
     private String district;
 
+    @Positive(message = "O cep deve ser maior que 0.")
     @Column(name = "cep", nullable = false)
     private String cep;
 
+    @NotBlank(message = "A cidade é obrigatória e não pode estar vazia.")
     @Column(name = "city", nullable = false)
     private String city;
 
+    @NotBlank(message = "A uf é obrigatória e não pode estar vazia.")
     @Column(name = "uf", nullable = false)
     private String uf;
 
+    @NotBlank(message = "O telefone é obrigatório e não pode estar vazio.")
     @Column(name = "fone", nullable = false)
     private String fone;
 
+    @NotBlank(message = "O email é obrigatório e não pode estar vazio.")
     @Column(name = "email", nullable = false)
     private String email;
 

@@ -39,11 +39,23 @@ public class BudgetProductMapper {
     }
 
     public void updateBudgetProductData(BudgetProductEntity budgetProductEntity, BudgetProductRequest budgetProductDTO){
-        budgetProductEntity.setBudgetEntity(budgetProductDTO.getBudgetEntity());
-        budgetProductEntity.setProductEntity(budgetProductDTO.getProductEntity());
-        budgetProductEntity.setQuantity(budgetProductDTO.getQuantity());
-        budgetProductEntity.setUnit_price(budgetProductDTO.getUnit_price());
-        budgetProductEntity.setTotal(budgetProductDTO.getTotal());
-        budgetProductEntity.setApproval(Boolean.parseBoolean(budgetProductDTO.getApproval()));
+        if (budgetProductDTO.getBudgetEntity() != null) {
+            budgetProductEntity.setBudgetEntity(budgetProductDTO.getBudgetEntity());
+        }
+        if (budgetProductDTO.getProductEntity() != null) {
+            budgetProductEntity.setProductEntity(budgetProductDTO.getProductEntity());
+        }
+        if (budgetProductDTO.getQuantity() != null) {
+            budgetProductEntity.setQuantity(budgetProductDTO.getQuantity());
+        }
+        if (budgetProductDTO.getUnit_price() != null) {
+            budgetProductEntity.setUnit_price(budgetProductDTO.getUnit_price());
+        }
+        if (budgetProductDTO.getTotal() != null) {
+            budgetProductEntity.setTotal(budgetProductDTO.getTotal());
+        }
+        if (budgetProductDTO.getApproval() != null) {
+            budgetProductEntity.setApproval(Boolean.parseBoolean(budgetProductDTO.getApproval()));
+        }
     }
 }

@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.budget_products;
 
+import br.com.java.tcc.application.budget_products.persistence.BudgetProductEntity;
 import br.com.java.tcc.application.budget_products.resources.BudgetProductRequest;
 import br.com.java.tcc.application.budget_products.resources.BudgetProductResponse;
 
@@ -9,6 +10,7 @@ public interface BudgetProductService {
 
     BudgetProductResponse findById(Long id);
 
+    BudgetProductEntity returnBudgetProduct(Long id);
     List<BudgetProductResponse> findAll();
 
     BudgetProductResponse register(BudgetProductRequest budgetProductDTO);

@@ -8,6 +8,7 @@ import br.com.java.tcc.application.company.util.CompanyMapper;
 import br.com.java.tcc.configuration.MessageCodeEnum;
 import br.com.java.tcc.configuration.MessageConfiguration;
 import br.com.java.tcc.exceptions.CustomException;
+import br.com.java.tcc.util.Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -41,6 +42,9 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public CompanyResponse register(CompanyRequest companyDTO) {
+        if(!Util.validationDocument(companyDTO.getCnpj())){
+            throw new RuntimeException("CPF/CNPj inválido");
+        }
 
         CompanyEntity companyEntity = companyMapper.toCompany(companyDTO);
 
@@ -50,15 +54,24 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public CompanyResponse update(Long id, CompanyRequest companyDTO) {
 
+        if (!companyRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Empresa)"), HttpStatus.NOT_FOUND);
+        }
+
         CompanyEntity companyEntity = returnCompany(id);
         companyMapper.updateCompanyData(companyEntity, companyDTO);
-        return companyMapper.toCompanyDTO(companyRepository.save(companyEntity));
+        CompanyEntity updateEntity = companyRepository.save(companyEntity);
+        return companyMapper.toCompanyDTO(updateEntity);
     }
 
     @Override
     public String delete(Long id) {
+        if (!companyRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Empresa)"), HttpStatus.NOT_FOUND);
+        }
+
         companyRepository.deleteById(id);
-        return "Company id: " + id + " deleted";
+        return "Empresa id: " + id + " deletada";
     }
 
     @Override

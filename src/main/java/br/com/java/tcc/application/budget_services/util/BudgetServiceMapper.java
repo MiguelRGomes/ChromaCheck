@@ -42,10 +42,20 @@ public class BudgetServiceMapper {
     }
 
     public void updateBudgetServiceData(BudgetServiceEntity budgetServiceEntity, BudgetServiceRequest budgetServiceDTO){
-        budgetServiceEntity.setBudgetEntity(budgetServiceDTO.getBudgetEntity());
-        budgetServiceEntity.setServicesEntity(budgetServiceDTO.getServicesEntity());
-        budgetServiceEntity.setPricesEntity(budgetServiceDTO.getPricesEntity());
-        budgetServiceEntity.setQuantity(budgetServiceDTO.getQuantity());
-        budgetServiceEntity.setDiscount(budgetServiceDTO.getDiscount());
+        if (budgetServiceDTO.getBudgetEntity() != null) {
+            budgetServiceEntity.setBudgetEntity(budgetServiceDTO.getBudgetEntity());
+        }
+        if (budgetServiceDTO.getServicesEntity() != null) {
+            budgetServiceEntity.setServicesEntity(budgetServiceDTO.getServicesEntity());
+        }
+        if (budgetServiceDTO.getPricesEntity() != null) {
+            budgetServiceEntity.setPricesEntity(budgetServiceDTO.getPricesEntity());
+        }
+        if (budgetServiceDTO.getQuantity() != null) {
+            budgetServiceEntity.setQuantity(budgetServiceDTO.getQuantity());
+        }
+        if (budgetServiceDTO.getDiscount() != null) {
+            budgetServiceEntity.setDiscount(budgetServiceDTO.getDiscount());
+        }
     }
 }

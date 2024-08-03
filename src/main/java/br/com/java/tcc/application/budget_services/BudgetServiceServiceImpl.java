@@ -11,8 +11,13 @@ import br.com.java.tcc.application.prices.PricesService;
 import br.com.java.tcc.application.prices.persistence.PricesEntity;
 import br.com.java.tcc.application.services.ServicesService;
 import br.com.java.tcc.application.services.persistence.ServicesEntity;
+import br.com.java.tcc.configuration.MessageCodeEnum;
+import br.com.java.tcc.configuration.MessageConfiguration;
+import br.com.java.tcc.exceptions.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +26,9 @@ import java.util.List;
 @Primary
 @RequiredArgsConstructor
 public class BudgetServiceServiceImpl implements BudgetServiceService {
+
+    @Autowired
+    MessageConfiguration messageConfiguration;
 
     private final BudgetServiceRepository budgetServiceRepository;
     private final BudgetServiceMapper budgetServiceMapper;
@@ -57,19 +65,28 @@ public class BudgetServiceServiceImpl implements BudgetServiceService {
 
     @Override
     public BudgetServiceResponse update(Long id, BudgetServiceRequest budgetServiceDTO) {
+        if (!budgetServiceRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Serviço do Orçamento)"), HttpStatus.NOT_FOUND);
+        }
+
         BudgetServiceEntity budgetServiceEntity = returnBudgetService(id);
         budgetServiceMapper.updateBudgetServiceData(budgetServiceEntity, budgetServiceDTO);
-        return budgetServiceMapper.toBudgetServiceDTO (budgetServiceRepository.save(budgetServiceEntity));
+        BudgetServiceEntity updatedEntity = budgetServiceRepository.save(budgetServiceEntity);
+        return budgetServiceMapper.toBudgetServiceDTO(updatedEntity);
     }
 
     @Override
     public String delete(Long id) {
+        if (!budgetServiceRepository.existsById(id)) {
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Serviço do Orçamento)"), HttpStatus.NOT_FOUND);
+        }
+
         budgetServiceRepository .deleteById(id);
         return "Budget Service id: " + id + " deleted";
     }
 
-    private BudgetServiceEntity returnBudgetService(Long id){
+    public BudgetServiceEntity returnBudgetService(Long id){
         return budgetServiceRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Budget Service wasn't found on database"));
+                .orElseThrow(()-> new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Serviço do Orçamento)"), HttpStatus.NOT_FOUND));
     }
 }

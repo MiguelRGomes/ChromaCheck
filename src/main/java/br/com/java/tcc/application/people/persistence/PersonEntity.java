@@ -3,6 +3,7 @@ package br.com.java.tcc.application.people.persistence;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -26,15 +27,18 @@ public class PersonEntity {
     @Column(name = "type", nullable = false)
     private String type;
 
+    @NotBlank(message = "O Nome é obrigatório e não pode estar vazio.")
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "cpf_cnpj", nullable = false, unique = true)
     private String cpf_cnpj;
 
+    @NotBlank(message = "O telefon é obrigatório e não pode estar vazio.")
     @Column(name = "fone", nullable = false)
     private String fone;
 
+    @NotBlank(message = "O email é obrigatório e não pode estar vazio.")
     @Column(name = "email", nullable = false)
     private String email;
 

@@ -69,18 +69,23 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponse update(Long id, PersonRequest personDTO) {
+        if (!personRepository.existsById(id)){
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Pessoa)"), HttpStatus.NOT_FOUND);
+        }
 
         PersonEntity personEntity = returnPerson(id);
-
         personMapper.updatePersonData(personEntity,personDTO);
-
-        return personMapper.toPersonDTO(personRepository.save(personEntity));
+        PersonEntity updateEntity = personRepository.save(personEntity);
+        return personMapper.toPersonDTO(updateEntity);
     }
 
     @Override
     public String delete(Long id) {
+        if (!personRepository.existsById(id)){
+            throw new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Pessoa)"), HttpStatus.NOT_FOUND);
+        }
         personRepository.deleteById(id);
-        return "Person id: "+id+" deleted";
+        return "Cliente id: "+id+" deletado";
     }
 
     public PersonEntity returnPerson(Long id) {

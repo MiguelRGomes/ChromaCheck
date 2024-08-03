@@ -33,8 +33,14 @@ public class ProductMapper {
     }
 
     public void updateProductData(ProductEntity productEntity, ProductRequest productDTO){
-        productEntity.setCompanyEntity(productDTO.getCompanyEntity());
-        productEntity.setName(productDTO.getName());
-        productEntity.setDescription(productDTO.getDescription());
+        if (productDTO.getCompanyEntity() != null) {
+            productEntity.setCompanyEntity(productDTO.getCompanyEntity());
+        }
+        if (productDTO.getName() != null) {
+            productEntity.setName(productDTO.getName());
+        }
+        if (productDTO.getDescription() != null) {
+            productEntity.setDescription(productDTO.getDescription());
+        }
     }
 }

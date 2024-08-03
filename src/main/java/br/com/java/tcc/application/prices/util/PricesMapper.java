@@ -34,9 +34,17 @@ public class PricesMapper {
     }
 
     public void updatePricesData(PricesEntity pricesEntity, PricesRequest pricesDTO){
-        pricesEntity.setCompanyEntity(pricesDTO.getCompanyEntity());
-        pricesEntity.setName(pricesDTO.getName());
-        pricesEntity.setSquare_meter(pricesDTO.getSquare_meter());
-        pricesEntity.setFixed_price(pricesDTO.getFixed_price());
+        if (pricesDTO.getCompanyEntity() != null) {
+            pricesEntity.setCompanyEntity(pricesDTO.getCompanyEntity());
+        }
+        if (pricesDTO.getName() != null) {
+            pricesEntity.setName(pricesDTO.getName());
+        }
+        if (pricesDTO.getSquare_meter() != null) {
+            pricesEntity.setSquare_meter(pricesDTO.getSquare_meter());
+        }
+        if (pricesDTO.getFixed_price() != null) {
+            pricesEntity.setFixed_price(pricesDTO.getFixed_price());
+        }
     }
 }
