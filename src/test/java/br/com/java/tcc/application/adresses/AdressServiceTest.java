@@ -40,12 +40,11 @@ public class AdressServiceTest {
     public void shouldReturnErrorWhenNotFoundTheRegistry() {
         final Long id = 1L;
         final Optional<AdressEntity> optionalAdressEntity = Optional.empty();
-        //when(adressRepository.findById(id)).thenReturn(optionalAdressEntity);
+        when(adressRepository.findById(id)).thenReturn(optionalAdressEntity);
         //when(messageConfiguration.getMessageByCode(any(), any())).thenReturn("Mensagem de erro");
 
         //when(adressMapper.toAdressDTO(any(AdressEntity.class)))
-              //  .thenThrow(new NullPointerException("Mapper está gerando NullPointerException"));
-
+          //      .thenThrow(new NullPointerException("Mapper está gerando NullPointerException"));
         assertThrows(CustomException.class, () -> adressService.findById(id));
     }
 

@@ -32,6 +32,8 @@ public class AdressServiceImpl implements AdressService {
     private JdbcTemplate jdbcTemplate;
 
     private final AdressRepository adressRepository;
+
+    @Autowired
     private final AdressMapper adressMapper;
     private final PersonService personService;
 
