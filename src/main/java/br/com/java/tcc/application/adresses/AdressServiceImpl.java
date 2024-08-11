@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Primary
@@ -31,11 +32,14 @@ public class AdressServiceImpl implements AdressService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private final AdressRepository adressRepository;
+    @Autowired
+    private AdressRepository adressRepository;
 
     @Autowired
-    private final AdressMapper adressMapper;
-    private final PersonService personService;
+    private AdressMapper adressMapper;
+
+    @Autowired
+    private PersonService personService;
 
     @Override
     public AdressResponse findById(Long id) {
@@ -55,7 +59,6 @@ public class AdressServiceImpl implements AdressService {
         PersonEntity personEntity = personService.returnPerson(adressDTO.getPersonEntity().getId());
         adressEntity.setPersonEntity(personEntity);
 
-        // Valida a UF fornecida
         if (adressDTO.getUf() != null && !isUfValid(adressDTO.getUf())) {
             throw new CustomException(
                     messageConfiguration.getMessageByCode(MessageCodeEnum.INVALID_STATE, adressDTO.getUf()),
@@ -88,9 +91,8 @@ public class AdressServiceImpl implements AdressService {
     }
 
     public AdressEntity returnAdress(Long id){
-        return adressRepository.findById(id)
-                //.orElseThrow(()-> new RuntimeException("Adress wasn't found on database"));
-                .orElseThrow(()-> new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Endereço)"), HttpStatus.NOT_FOUND));
+        return adressRepository.findById(id).orElseThrow(()->
+                new CustomException(messageConfiguration.getMessageByCode(MessageCodeEnum.REGISTER_NOT_FOUND, "(Endereço)"), HttpStatus.NOT_FOUND));
     }
 
     public boolean isUfValid(String uf) {
