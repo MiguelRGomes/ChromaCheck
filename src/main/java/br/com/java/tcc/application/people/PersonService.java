@@ -13,7 +13,7 @@ public interface PersonService {
 
     PersonEntity returnPerson(Long id);
 
-    List<PersonResponse> findAll();
+    List<PersonResponse> findByCompanyEntity(Long companyId);
 
     PersonResponse register(PersonRequest personDTO);
 

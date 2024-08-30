@@ -43,9 +43,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonResponse> findAll() {
-
-        return personMapper.toPeopleDTO(personRepository.findAll());
+    public List<PersonResponse> findByCompanyEntity(Long companyId) {
+        // Filtra as pessoas pelo ID da empresa
+        CompanyEntity companyEntity = companyService.returnCompany(companyId);
+        List<PersonEntity> persons = personRepository.findByCompanyEntity(companyEntity);
+        return personMapper.toPeopleDTO(persons);
     }
 
     @Override

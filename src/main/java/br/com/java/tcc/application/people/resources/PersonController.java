@@ -32,8 +32,8 @@ public class PersonController {
             summary = "Buscar Todas Pessoas",
             description = "Ao executar o endpoint irá retornar os dados de todas pessoas cadastradas")
     @GetMapping
-    public ResponseEntity<List<PersonResponse>> findAll() {
-        return ResponseEntity.ok().body(personService.findAll());
+    public ResponseEntity<List<PersonResponse>> findByCompanyEntity(@RequestParam(name = "companyId") Long companyId) {
+        return ResponseEntity.ok().body(personService.findByCompanyEntity(companyId));
     }
 
     @Operation(
