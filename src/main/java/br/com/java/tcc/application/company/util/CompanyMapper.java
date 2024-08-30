@@ -24,6 +24,7 @@ public class CompanyMapper {
                 .uf(companyDTO.getUf())
                 .fone(companyDTO.getFone())
                 .email(companyDTO.getEmail())
+                .password(companyDTO.getPassword())
                 .build();
     }
 
@@ -67,5 +68,9 @@ public class CompanyMapper {
         if (companyDTO.getEmail() != null) {
             companyEntity.setEmail(companyDTO.getEmail());
         }
+    }
+
+    public CompanyResponse toCompanyResponse(CompanyEntity companyEntity) {
+        return new CompanyResponse(companyEntity);
     }
 }

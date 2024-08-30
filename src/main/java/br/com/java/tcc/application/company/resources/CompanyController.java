@@ -4,6 +4,7 @@ import br.com.java.tcc.application.company.CompanyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,6 +25,25 @@ public class CompanyController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<CompanyResponse> findById(@PathVariable(name = "id") Long id){
         return ResponseEntity.ok().body(companyService.findById(id));
+    }
+
+    @Operation(
+            summary = "Buscar empresa por CNPJ e senha",
+            description = "Ao executar o endpoint irá retornar os dados de uma empresa com base no CNPJ e senha informados"
+    )
+    @GetMapping("/login")
+    public ResponseEntity<CompanyResponse> findByCnpjAndPassword(
+            @RequestParam(name = "cnpj") String cnpj,
+            @RequestParam(name = "password") String password
+    ) {
+        // Implementar a lógica para buscar a empresa com base no CNPJ e na senha
+        CompanyResponse companyResponse = companyService.findByCnpjAndPassword(cnpj, password);
+
+        if (companyResponse != null) {
+            return ResponseEntity.ok().body(companyResponse);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
     }
 
     @Operation(

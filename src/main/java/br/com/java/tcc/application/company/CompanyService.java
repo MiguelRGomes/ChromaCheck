@@ -20,4 +20,5 @@ public interface CompanyService {
 
     String delete(Long id);
 
+    CompanyResponse findByCnpjAndPassword(String cnpj, String password);
 }

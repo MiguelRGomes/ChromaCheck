@@ -57,8 +57,12 @@ public class CompanyEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @NotBlank(message = "A senha é obrigatória e não pode estar vazia.")
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @Builder
-    public CompanyEntity(String cnpj, String name, String address, Integer number, String district, String cep, String city, String uf, String fone, String email) {
+    public CompanyEntity(String cnpj, String name, String address, Integer number, String district, String cep, String city, String uf, String fone, String email, String password) {
         this.cnpj = cnpj;
         this.name = name;
         this.address = address;
@@ -69,6 +73,7 @@ public class CompanyEntity {
         this.uf = uf;
         this.fone = fone;
         this.email = email;
+        this.password = password;
     }
 
     public void setId(Long id){

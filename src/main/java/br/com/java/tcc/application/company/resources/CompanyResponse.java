@@ -27,6 +27,8 @@ public class CompanyResponse {
 
     private String email;
 
+    private String password;
+
     public CompanyResponse(CompanyEntity companyEntity){
         this.id = companyEntity.getId();
         this.cnpj = companyEntity.getCnpj();
@@ -39,6 +41,7 @@ public class CompanyResponse {
         this.uf = companyEntity.getUf();
         this.fone = companyEntity.getFone();
         this.email = companyEntity.getEmail();
+        this.password = companyEntity.getPassword();
     }
 
     public static CompanyResponse from(CompanyEntity companyEntity) {

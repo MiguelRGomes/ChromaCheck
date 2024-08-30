@@ -23,4 +23,6 @@ public class CompanyRequest {
     private String fone;
 
     private String email;
+
+    private String password;
 }

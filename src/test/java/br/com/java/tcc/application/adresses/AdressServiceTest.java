@@ -42,19 +42,8 @@ public class AdressServiceTest {
 
         when(adressRepository.findById(id)).thenReturn(optionalAdressEntity);
 
-        assertThrows(CustomException.class, () -> adressService.findById(id));
+        assertThrows(CustomException.class, () -> adressService.returnAdress(id));
     }
-
-//    @Test
-//    @DisplayName("Deve retornar erro quando não for localizado o registro")
-//    public void shouldReturnErrorWhenNotFoundTheRegistry() {
-//        final Long id = 1L;
-//        final Optional<AdressEntity> optionalAdressEntity = Optional.empty();
-//
-//        when(adressRepository.findById(id)).thenReturn(optionalAdressEntity);
-//
-//        assertThrows(CustomException.class, () -> adressService.returnAdress(id));
-//    }
 
     @Test
     @DisplayName("Não deve retornar erro quando o registro for encontrado")
