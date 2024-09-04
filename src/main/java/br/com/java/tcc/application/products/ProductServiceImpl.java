@@ -9,6 +9,7 @@ import br.com.java.tcc.application.products.persistence.ProductRepository;
 import br.com.java.tcc.application.products.resources.ProductRequest;
 import br.com.java.tcc.application.products.resources.ProductResponse;
 import br.com.java.tcc.application.products.util.ProductMapper;
+import br.com.java.tcc.application.services.persistence.ServicesEntity;
 import br.com.java.tcc.configuration.MessageCodeEnum;
 import br.com.java.tcc.configuration.MessageConfiguration;
 import br.com.java.tcc.exceptions.CustomException;
@@ -42,8 +43,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> findAll() {
-        return productMapper.toProductDTO(productRepository.findAll());
+    public List<ProductResponse> findByCompanyEntity(Long companyId){
+        CompanyEntity companyEntity = companyService.returnCompany(companyId);
+        List<ProductEntity> products = productRepository.findByCompanyEntity(companyEntity);
+
+        return productMapper.toProductDTO(products);
     }
 
     @Override

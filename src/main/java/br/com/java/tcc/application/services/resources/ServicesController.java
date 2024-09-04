@@ -1,5 +1,6 @@
 package br.com.java.tcc.application.services.resources;
 
+import br.com.java.tcc.application.people.resources.PersonResponse;
 import br.com.java.tcc.application.services.ServicesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,8 +31,8 @@ public class ServicesController {
             summary = "Buscar Todos Serviços",
             description = "Ao executar o endpoint irá retornar os dados de todos serviços cadastrados")
     @GetMapping
-    public ResponseEntity<List<ServicesResponse>> findAll(){
-        return ResponseEntity.ok().body(servicesService.findAll());
+    public ResponseEntity<List<ServicesResponse>> findByCompanyEntity(@RequestParam(name = "companyId") Long companyId) {
+        return ResponseEntity.ok().body(servicesService.findByCompanyEntity(companyId));
     }
 
     @Operation(

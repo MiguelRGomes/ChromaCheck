@@ -1,6 +1,7 @@
 package br.com.java.tcc.application.prices.resources;
 
 import br.com.java.tcc.application.prices.PricesService;
+import br.com.java.tcc.application.services.resources.ServicesResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class PricesController {
             summary = "Buscar Todos Preços por Medidas",
             description = "Ao executar o endpoint irá retornar os dados de todos preços por medidas cadastrados")
     @GetMapping
-    public ResponseEntity<List<PricesResponse>> findAll() {
-        return ResponseEntity.ok().body(pricesService.findAll());
+    public ResponseEntity<List<PricesResponse>> findByCompanyEntity(@RequestParam(name = "companyId") Long companyId) {
+        return ResponseEntity.ok().body(pricesService.findByCompanyEntity(companyId));
     }
 
     @Operation(

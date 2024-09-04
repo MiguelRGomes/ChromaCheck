@@ -3,6 +3,7 @@ package br.com.java.tcc.application.services;
 import br.com.java.tcc.application.company.CompanyService;
 import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.company.persistence.CompanyRepository;
+import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.services.persistence.ServicesEntity;
 import br.com.java.tcc.application.services.persistence.ServicesRepository;
 import br.com.java.tcc.application.services.resources.ServicesRequest;
@@ -40,10 +41,13 @@ public class ServicesServiceImpl implements ServicesService {
         return servicesMapper.toServicesDTO(returnServices(id));
     }
 
-    @Override
-    public List<ServicesResponse> findAll(){
 
-        return servicesMapper.toServicesDTO(servicesRepository.findAll());
+    @Override
+    public List<ServicesResponse> findByCompanyEntity(Long companyId){
+        CompanyEntity companyEntity = companyService.returnCompany(companyId);
+        List<ServicesEntity> services = servicesRepository.findByCompanyEntity(companyEntity);
+
+        return servicesMapper.toServicesDTO(services);
     }
 
     @Override

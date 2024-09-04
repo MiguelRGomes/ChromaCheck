@@ -10,7 +10,6 @@ public interface PricesService {
     PricesResponse findById(Long Id);
 
     PricesEntity returnPrices(Long Id);
-    List<PricesResponse> findAll();
 
     PricesResponse register(PricesRequest pricesDTO);
 
@@ -18,4 +17,5 @@ public interface PricesService {
 
     String delete(Long id);
 
+    List<PricesResponse> findByCompanyEntity(Long companyId);
 }

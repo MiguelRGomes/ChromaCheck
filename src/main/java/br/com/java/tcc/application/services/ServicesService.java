@@ -12,11 +12,11 @@ public interface ServicesService {
 
     ServicesEntity returnServices(Long id);
 
-    List<ServicesResponse> findAll();
-
     ServicesResponse register(ServicesRequest servicesDTO);
 
     ServicesResponse update(Long id, ServicesRequest servicesDTO);
 
     String delete(Long id);
+
+    List<ServicesResponse> findByCompanyEntity(Long companyId);
 }

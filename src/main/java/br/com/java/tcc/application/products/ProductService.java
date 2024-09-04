@@ -11,7 +11,6 @@ public interface ProductService {
     ProductResponse findById(Long id);
 
     ProductEntity returnProducts(Long id);
-    List<ProductResponse> findAll();
 
     ProductResponse register(ProductRequest productDTO);
 
@@ -19,4 +18,5 @@ public interface ProductService {
 
     String delete(Long id);
 
+    List<ProductResponse> findByCompanyEntity(Long companyId);
 }

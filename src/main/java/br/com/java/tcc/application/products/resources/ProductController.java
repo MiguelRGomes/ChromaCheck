@@ -1,6 +1,7 @@
 package br.com.java.tcc.application.products.resources;
 
 import br.com.java.tcc.application.products.ProductService;
+import br.com.java.tcc.application.services.resources.ServicesResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class ProductController {
             summary = "Buscar Todos Produtos",
             description = "Ao executar o endpoint irá retornar os dados de todos produtos cadastrados")
     @GetMapping
-    public ResponseEntity<List<ProductResponse>> findAll(){
-        return ResponseEntity.ok().body(productService.findAll());
+    public ResponseEntity<List<ProductResponse>> findByCompanyEntity(@RequestParam(name = "companyId") Long companyId) {
+        return ResponseEntity.ok().body(productService.findByCompanyEntity(companyId));
     }
 
     @Operation(

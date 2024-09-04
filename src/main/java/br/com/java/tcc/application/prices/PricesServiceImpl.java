@@ -9,6 +9,7 @@ import br.com.java.tcc.application.prices.resources.PricesController;
 import br.com.java.tcc.application.prices.resources.PricesRequest;
 import br.com.java.tcc.application.prices.resources.PricesResponse;
 import br.com.java.tcc.application.prices.util.PricesMapper;
+import br.com.java.tcc.application.products.persistence.ProductEntity;
 import br.com.java.tcc.configuration.MessageCodeEnum;
 import br.com.java.tcc.configuration.MessageConfiguration;
 import br.com.java.tcc.exceptions.CustomException;
@@ -41,8 +42,11 @@ public class PricesServiceImpl implements PricesService {
     }
 
     @Override
-    public List<PricesResponse> findAll(){
-        return pricesMapper.toPricesDTO(pricesRepository.findAll());
+    public List<PricesResponse> findByCompanyEntity(Long companyId){
+        CompanyEntity companyEntity = companyService.returnCompany(companyId);
+        List<PricesEntity> prices = pricesRepository.findByCompanyEntity(companyEntity);
+
+        return pricesMapper.toPricesDTO(prices);
     }
 
     @Override
