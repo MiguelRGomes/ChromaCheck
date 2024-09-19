@@ -12,11 +12,11 @@ public interface AdressService {
 
     AdressEntity returnAdress(Long id);
 
-    List<AdressResponse> findAll();
-
     AdressResponse register(AdressRequest adressDTO);
 
     AdressResponse update(Long id, AdressRequest adressDTO);
 
     String delete(Long id);
+
+    List<AdressResponse> findByPersonEntity(Long personId);
 }

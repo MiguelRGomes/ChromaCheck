@@ -1,6 +1,7 @@
 package br.com.java.tcc.application.budget.resources;
 
 import br.com.java.tcc.application.budget.BudgetService;
+import br.com.java.tcc.application.people.resources.PersonResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +31,9 @@ public class BudgetController {
             summary = "Buscar Todos Orçamentos",
             description = "Ao executar o endpoint irá retornar os dados de todos orçamentos cadastrados")
     @GetMapping
-    public ResponseEntity<List<BudgetResponse>> findAll(){
+    public ResponseEntity<List<BudgetResponse>> findByCompanyEntity(@RequestParam(name = "companyId") Long companyId) {
 
-        return ResponseEntity.ok().body(budgetService.findAll());
+        return ResponseEntity.ok().body(budgetService.findByCompanyEntity(companyId));
     }
 
     @Operation(

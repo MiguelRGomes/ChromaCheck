@@ -5,6 +5,7 @@ import br.com.java.tcc.application.adresses.persistence.AdressRepository;
 import br.com.java.tcc.application.adresses.resources.AdressRequest;
 import br.com.java.tcc.application.adresses.resources.AdressResponse;
 import br.com.java.tcc.application.adresses.util.AdressMapper;
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
 import br.com.java.tcc.application.people.PersonService;
 import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.configuration.MessageCodeEnum;
@@ -48,8 +49,10 @@ public class AdressServiceImpl implements AdressService {
     }
 
     @Override
-    public List<AdressResponse> findAll() {
-        return adressMapper.toAdressDTO(adressRepository.findAll());
+    public List<AdressResponse> findByPersonEntity(Long personId) {
+        PersonEntity personEntity = personService.returnPerson(personId);
+        List<AdressEntity> adress = adressRepository.findByPersonEntity(personEntity);
+        return adressMapper.toAdressDTO(adress);
     }
 
     @Override

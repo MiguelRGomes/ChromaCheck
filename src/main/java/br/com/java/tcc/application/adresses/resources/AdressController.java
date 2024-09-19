@@ -30,9 +30,9 @@ public class AdressController {
             summary = "Buscar Todos Endereços",
             description = "Ao executar o endpoint irá retornar os dados de todos endereços cadastrados")
     @GetMapping
-    public ResponseEntity<List<AdressResponse>> findAll(){
+    public ResponseEntity<List<AdressResponse>> findByPersonEntity(@RequestParam(name = "personId") Long personId) {
 
-        return ResponseEntity.ok().body(adressService.findAll());
+        return ResponseEntity.ok().body(adressService.findByPersonEntity(personId));
     }
 
     @Operation(

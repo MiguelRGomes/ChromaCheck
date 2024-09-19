@@ -49,8 +49,10 @@ public class BudgetServiceImpl implements BudgetService {
     }
 
     @Override
-    public List<BudgetResponse> findAll() {
-        return budgetMapper.toBudgetDTO(budgetRepository.findAll());
+    public List<BudgetResponse> findByCompanyEntity(Long companyId) {
+        CompanyEntity companyEntity = companyService.returnCompany(companyId);
+        List<BudgetEntity> budgets = budgetRepository.findByCompanyEntity(companyEntity);
+        return budgetMapper.toBudgetDTO(budgets);
     }
 
     @Override
