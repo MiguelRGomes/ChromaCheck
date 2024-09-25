@@ -11,11 +11,12 @@ public interface BudgetProductService {
     BudgetProductResponse findById(Long id);
 
     BudgetProductEntity returnBudgetProduct(Long id);
-    List<BudgetProductResponse> findAll();
 
     BudgetProductResponse register(BudgetProductRequest budgetProductDTO);
 
     BudgetProductResponse update(Long id, BudgetProductRequest budgetProductDTO);
 
     String delete(Long id);
+
+    List<BudgetProductResponse> findByBudgetEntity(Long budgetId);
 }

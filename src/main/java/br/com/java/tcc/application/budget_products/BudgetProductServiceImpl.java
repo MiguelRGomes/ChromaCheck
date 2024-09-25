@@ -7,6 +7,8 @@ import br.com.java.tcc.application.budget_products.persistence.BudgetProductRepo
 import br.com.java.tcc.application.budget_products.resources.BudgetProductRequest;
 import br.com.java.tcc.application.budget_products.resources.BudgetProductResponse;
 import br.com.java.tcc.application.budget_products.util.BudgetProductMapper;
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
+import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.products.ProductService;
 import br.com.java.tcc.application.products.persistence.ProductEntity;
 import br.com.java.tcc.configuration.MessageCodeEnum;
@@ -40,8 +42,10 @@ public class BudgetProductServiceImpl implements BudgetProductService {
     }
 
     @Override
-    public List<BudgetProductResponse> findAll() {
-        return budgetProductMapper.toBudgetProductDTO(budgetProductRepository.findAll());
+    public List<BudgetProductResponse> findByBudgetEntity(Long budgetId) {
+        BudgetEntity budgetEntity = budgetService.returnBudget(budgetId);
+        List<BudgetProductEntity> budgets = budgetProductRepository.findByBudgetEntity(budgetEntity);
+        return budgetProductMapper.toBudgetProductDTO(budgets);
     }
 
     @Override

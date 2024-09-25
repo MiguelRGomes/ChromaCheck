@@ -30,9 +30,8 @@ public class BudgetProductController {
             summary = "Buscar Todos Produtos do Orçamento",
             description = "Ao executar o endpoint irá retornar os dados de todos produtos dos orçamentos cadastrados")
     @GetMapping
-    public ResponseEntity<List<BudgetProductResponse>> findAll(){
-
-        return ResponseEntity.ok().body(budgetProductService.findAll());
+    public ResponseEntity<List<BudgetProductResponse>> findByBudgetEntity(@RequestParam(name = "budgetId") Long budgetId) {
+        return ResponseEntity.ok().body(budgetProductService.findByBudgetEntity(budgetId));
     }
 
     @Operation(
