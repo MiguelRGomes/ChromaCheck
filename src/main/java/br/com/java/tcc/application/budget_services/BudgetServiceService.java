@@ -12,11 +12,11 @@ public interface BudgetServiceService {
 
     BudgetServiceEntity returnBudgetService(Long id);
 
-    List<BudgetServiceResponse> findAll();
-
     BudgetServiceResponse register(BudgetServiceRequest budgetServiceDTO);
 
     BudgetServiceResponse update(Long id, BudgetServiceRequest budgetServiceDTO);
 
     String delete(Long id);
+
+    List<BudgetServiceResponse> findByBudgetEntity(Long budgetId);
 }

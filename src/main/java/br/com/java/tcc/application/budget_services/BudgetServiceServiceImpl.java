@@ -7,6 +7,8 @@ import br.com.java.tcc.application.budget_services.persistence.BudgetServiceRepo
 import br.com.java.tcc.application.budget_services.resources.BudgetServiceRequest;
 import br.com.java.tcc.application.budget_services.resources.BudgetServiceResponse;
 import br.com.java.tcc.application.budget_services.util.BudgetServiceMapper;
+import br.com.java.tcc.application.company.persistence.CompanyEntity;
+import br.com.java.tcc.application.people.persistence.PersonEntity;
 import br.com.java.tcc.application.prices.PricesService;
 import br.com.java.tcc.application.prices.persistence.PricesEntity;
 import br.com.java.tcc.application.services.ServicesService;
@@ -43,8 +45,11 @@ public class BudgetServiceServiceImpl implements BudgetServiceService {
     }
 
     @Override
-    public List<BudgetServiceResponse> findAll() {
-        return budgetServiceMapper.toBudgetServiceDTO(budgetServiceRepository.findAll());
+    public List<BudgetServiceResponse> findByBudgetEntity(Long budgetId) {
+        // Filtra as pessoas pelo ID da empresa
+        BudgetEntity budgetEntity = budgetService.returnBudget(budgetId);
+        List<BudgetServiceEntity> budgets = budgetServiceRepository.findByBudgetEntity(budgetEntity);
+        return budgetServiceMapper.toBudgetServiceDTO(budgets);
     }
 
     @Override
