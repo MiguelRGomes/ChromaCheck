@@ -53,7 +53,7 @@ export default function BudgetStatus(props) {
     },
     colors: ["#28a745", "#ffc107", "#dc3545"], // Cores para aprovados, pendentes e cancelados
     legend: {
-      position: "top",
+      position: "bottom",
     },
   };
 
@@ -74,13 +74,13 @@ export default function BudgetStatus(props) {
   ];
 
   return (
-    <Flex justify="center" align="center" w={{ base: "100%", md: "210%" }} h={{ base: "auto", md: "50vh" }}>
+    <Flex justify="center" align="center" w={{ base: "100%", md: "210%" }} h={{ base: "auto", md: "65vh" }}>
       <Card
         justifyContent="center"
         align="center"
         direction="column"
-        w={{ base: "90%", md: "80%" }} // Ajuste a largura do card conforme necessário
-        maxW="800px" // Limitar a largura máxima do card
+        w={{ base: "100%", md: "80%" }} // Ajuste a largura do card conforme necessário
+        maxW="1200px" // Limitar a largura máxima do card
         mb="0px"
         {...rest}
       >
