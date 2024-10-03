@@ -66,7 +66,7 @@ const routes = [
     hide: true
   },
   {
-    name: "Cliente/Loja Parceira",
+    name: "Endereço",
     layout: "/admin",
     path: "/:id/address",
     icon: <Icon as={MdGroup} width='20px' height='20px' color='inherit' />,
@@ -97,7 +97,7 @@ const routes = [
     hide: true
   },
   {
-    name: "Orçamento",
+    name: "Item do Orçamento",
     layout: "/admin",
     path: "/:id/budget-item",
     icon: <Icon as={MdOutlineReceiptLong} width='20px' height='20px' color='inherit' />,
@@ -105,7 +105,7 @@ const routes = [
     hide: true
   },
   {
-    name: "Orçamento",
+    name: "Serviço do Orçamento",
     layout: "/admin",
     path: "/:id/budget-service",
     icon: <Icon as={MdOutlineReceiptLong} width='20px' height='20px' color='inherit' />,

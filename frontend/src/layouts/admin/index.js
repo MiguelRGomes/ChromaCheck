@@ -20,6 +20,29 @@ export default function Dashboard(props) {
   };
   const getActiveRoute = (routes) => {
     let activeRoute = "Default Brand Text";
+  
+    // Obtém o domínio e a parte do hash
+    //const baseUrl = window.location.origin; // ex: http://localhost:3000
+    const hashPart = window.location.hash; // ex: #/admin/editbudget/6
+  
+    // Combina as partes para formar o prefixo desejado
+    //onst prefix = `${baseUrl}${hashPart}`;
+  
+    //console.log("Prefixo da URL:", prefix);
+   // console.log(routes);
+  
+    // Função para transformar a URL em um padrão que ignora números
+    const normalizeUrl = (url) => {
+      // Remove a parte do hash e normaliza a URL
+      const cleanUrl = url.split('#')[1] || url; // Obtém a parte após o #, ou a URL original se não houver #
+      
+      return cleanUrl.replace(/\/\d+/g, '/:id'); // Substitui números por :id
+    };
+  
+    const normalizedPrefix = normalizeUrl(hashPart); // Normaliza a hashPart
+    
+    console.log("Sem numero:", normalizedPrefix);
+
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
         let collapseActiveRoute = getActiveRoute(routes[i].items);
@@ -32,9 +55,10 @@ export default function Dashboard(props) {
           return categoryActiveRoute;
         }
       } else {
-        if (
-          window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
-        ) {
+        // Verifica se a concatenação de layout e path é igual a normalizedPrefix
+        const currentRoute = routes[i].layout + routes[i].path;
+        console.log("Array:",currentRoute);
+        if (currentRoute === normalizedPrefix) {
           return routes[i].name;
         }
       }

@@ -47,6 +47,8 @@ export default function BudgetList() {
   });
 
   const handleEditBudget = (budgetId) => {
+    const currentUrl = window.location.href; // ex: http://localhost:3000#/admin/editbudget/6
+    localStorage.setItem("activeRouteUrl", currentUrl); // Armazena a URL correta
     history.push(`/admin/editbudget/${budgetId}`);
   };
 

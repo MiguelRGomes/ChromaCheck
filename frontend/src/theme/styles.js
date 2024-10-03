@@ -3,22 +3,22 @@ export const globalStyles = {
   colors: {
     brand: {
       100: "#059bef", // azul claro
-      200: "#17f1fd", // azul médio
-      300: "#17f1fd", // azul médio
-      400: "#17f1fd", // azul médio
-      500: "#059bef", // azul claro
-      600: "#17f1fd", // azul médio
+      200: "#059bef", // azul médio
+      300: "#059bef", // azul médio
+      400: "#059bef", // azul médio
+      500: "#041d46", // azul claro
+      600: "#059bef", // azul médio
       700: "#041d46", // azul escuro
       800: "#041d46", // azul escuro
       900: "#041d46", // azul escuro
     },
     brandScheme: {
-      100: "#059bef", // azul claro
-      200: "#17f1fd", // azul médio
-      300: "#17f1fd", // azul médio
-      400: "#17f1fd", // azul médio
-      500: "#059bef", // azul claro
-      600: "#17f1fd", // azul médio
+      100: "#041d46", // azul claro
+      200: "#059bef", // azul médio
+      300: "#059bef", // azul médio
+      400: "#059bef", // azul médio
+      500: "#041d46", // azul claro
+      600: "#059bef", // azul médio
       700: "#041d46", // azul escuro
       800: "#041d46", // azul escuro
       900: "#041d46", // azul escuro
