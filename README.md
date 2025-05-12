@@ -20,9 +20,9 @@ A principal missão do sistema é automatizar todas as etapas do orçamento, des
 - Integração entre usuários/clientes e empresas prestadoras de serviço
 
 💻 Tecnologias Utilizadas
-Java – Backend robusto e escalável
-React – Interface moderna e responsiva
-Docker – Containerização do ambiente para facilitar o desenvolvimento, testes e deploy
+- Java – Backend robusto e escalável
+- React – Interface moderna e responsiva
+- Docker – Containerização do ambiente para facilitar o desenvolvimento, testes e deploy
 
 🎯 Motivação
 A criação desta plataforma nasceu da necessidade de:
