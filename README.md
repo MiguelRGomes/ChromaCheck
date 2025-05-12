@@ -30,3 +30,22 @@ A criação desta plataforma nasceu da necessidade de:
 - Padronizar os orçamentos
 - Aumentar a produtividade das empresas de pintura
 - Tornar o processo mais ágil e transparente para os clientes
+
+## 🖼️ Telas do Sistema
+
+> **Observação:** As imagens a seguir representam algumas telas do sistema desenvolvidas.
+
+## 🔐 Tela de Login
+![Tela de Login](Documentos/ImagensProjeto/Login.png)
+
+## 🏢 Cadastro de Empresa
+![Cadastro de Empresa](Documentos/ImagensProjeto/CadastroEmpresa.png)
+
+## 📊 Dashboard
+![Dashboard](Documentos/ImagensProjeto/Dashboard.png)
+
+## 📝 Cadastrar Orçamento
+![Cadastro de Orcaçamento](Documentos/ImagensProjeto/CadastroOrcamento.png)
+
+## 🔍 Consultar Orçamentos
+![Consultar Orçamentos](Documentos/ImagensProjeto/ConsultarOrcamento.png)
