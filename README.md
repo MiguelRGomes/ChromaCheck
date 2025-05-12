@@ -1,2 +1,32 @@
-Apresento a vocês uma plataforma que faz a
-junção entre usuário/cliente e usuário/empresa, com a principal atividade que visa simplificar e agilizar o processo de elaboração de orçamentos para serviços de pintura residencial, atualmente oneroso em tempo e recursos. A solução proposta é um sistema digital que automatiza cada etapa do processo, desde a coleta de informações até a geração e envio de orçamentos aos clientes. A motivação para essa iniciativa reside na necessidade de aumentar a eficiência operacional da empresa, garantir a precisão e consistência dos orçamentos, e oferecer uma experiência mais satisfatória aos clientes. Para alcançar esses objetivos, serão utilizadas práticas de desenvolvimento como Java, React, Docker. O sistema aliviará a carga de trabalho, eliminando algumas necessidades e proporcionando uma experiência mais eficiente para a empresa e os clientes.
+ChromaCheck - Plataforma de Orçamentos para Serviços de Pintura Residencial
+
+📌 Descrição
+
+Esta plataforma tem como objetivo conectar usuários/clientes a empresas prestadoras de serviço, com foco em simplificar e agilizar o processo de elaboração de orçamentos para serviços de pintura residencial. Atualmente, esse processo consome tempo e recursos excessivos, tanto para os clientes quanto para as empresas.
+
+🚀 Objetivo
+
+A principal missão do sistema é automatizar todas as etapas do orçamento, desde a coleta de informações até a geração e envio do orçamento final, proporcionando:
+
+- Maior eficiência operacional
+- Mais precisão e consistência nos orçamentos
+- Melhor experiência para o cliente
+
+🧩 Funcionalidades
+- Coleta automatizada de dados sobre o serviço solicitado
+- Geração automática de orçamentos personalizados
+- Envio digital dos orçamentos para os clientes
+- Interface intuitiva tanto para clientes quanto para empresas
+- Integração entre usuários/clientes e empresas prestadoras de serviço
+
+💻 Tecnologias Utilizadas
+Java – Backend robusto e escalável
+React – Interface moderna e responsiva
+Docker – Containerização do ambiente para facilitar o desenvolvimento, testes e deploy
+
+🎯 Motivação
+A criação desta plataforma nasceu da necessidade de:
+- Reduzir a carga de trabalho manual
+- Padronizar os orçamentos
+- Aumentar a produtividade das empresas de pintura
+- Tornar o processo mais ágil e transparente para os clientes
